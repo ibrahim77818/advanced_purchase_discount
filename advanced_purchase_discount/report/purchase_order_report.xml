@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_purchaseorder_document_apd" inherit_id="purchase.report_purchaseorder_document">
-        <xpath expr="//th[@name='th_price_unit']" position="after">
-            <th name="th_apd_discount" class="text-end" t-if="any(l.discount for l in o.order_line)">
-                <strong>Disc.%</strong>
-            </th>
-        </xpath>
-        <xpath expr="//span[@t-field='line.price_unit']/.." position="after">
-            <td class="text-end" t-if="any(l.discount for l in o.order_line)">
-                <span class="text-nowrap" t-if="line.discount"
-                      t-esc="('%.6f' % line.discount).rstrip('0').rstrip('.')"/>
-            </td>
+        <!-- Odoo 17 already prints a Disc. column: print the high-precision value without trailing zeros. -->
+        <xpath expr="//span[@t-field='line.discount']" position="replace">
+            <span t-esc="('%.6f' % line.discount).rstrip('0').rstrip('.')"/>
         </xpath>
         <xpath expr="//div[@id='total']//table" position="before">
-            <table class="table table-sm" t-if="o.apd_amount_discount" name="apd_discount_summary">
+            <table class="table table-sm table-borderless" t-if="o.apd_amount_discount" name="apd_discount_summary">
                 <tr>
                     <td><strong>Gross Amount</strong></td>
                     <td class="text-end">

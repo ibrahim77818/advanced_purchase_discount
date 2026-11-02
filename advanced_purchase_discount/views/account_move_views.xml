@@ -10,37 +10,40 @@
                 <field name="apd_has_discount_mismatch" invisible="1"/>
                 <button name="action_apd_open_discount_wizard" type="object" string="Discount"
                         icon="fa-percent" groups="account.group_account_invoice"
-                        attrs="{'invisible': ['|', '|', ('apd_discount_enabled', '=', False), ('state', '!=', 'draft'), ('move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
+                        invisible="not apd_discount_enabled or state != 'draft' or move_type not in ('in_invoice', 'in_refund')"/>
             </xpath>
             <xpath expr="//sheet/div[@name='button_box']" position="inside">
                 <button name="action_apd_view_applications" type="object" class="oe_stat_button" icon="fa-percent"
-                        attrs="{'invisible': [('apd_application_count', '=', 0)]}">
+                        invisible="apd_application_count == 0">
                     <field name="apd_application_count" widget="statinfo" string="Discounts"/>
                 </button>
             </xpath>
             <xpath expr="//header" position="after">
                 <div class="alert alert-warning mb-0" role="alert"
-                     attrs="{'invisible': ['|', ('apd_has_discount_mismatch', '=', False), ('state', '!=', 'draft')]}">
+                     invisible="not apd_has_discount_mismatch or state != 'draft'">
                     Some line discounts differ from their purchase order lines.
                     <button name="action_apd_sync_po_discounts" type="object" class="btn-link p-0 align-baseline"
                             string="Use the purchase order discounts"/>
                 </div>
             </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+            <xpath expr="//field[@name='invoice_line_ids']/list" position="attributes">
                 <attribute name="decoration-info">apd_is_discount_line</attribute>
                 <attribute name="decoration-warning">apd_discount_mismatch</attribute>
             </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="after">
-                <field name="apd_is_discount_line" invisible="1"/>
-                <field name="apd_discount_mismatch" invisible="1"/>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='discount']" position="attributes">
+                <attribute name="width">90px</attribute>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='discount']" position="after">
+                <field name="apd_is_discount_line" column_invisible="True"/>
+                <field name="apd_discount_mismatch" column_invisible="True"/>
                 <field name="apd_po_discount" optional="hide"
-                       attrs="{'column_invisible': [('parent.move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
+                       column_invisible="parent.move_type not in ('in_invoice', 'in_refund')"/>
             </xpath>
             <xpath expr="//field[@name='tax_totals']" position="before">
                 <field name="apd_amount_gross" widget="monetary" colspan="2"
-                       attrs="{'invisible': ['|', ('apd_amount_discount', '=', 0), ('move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
+                       invisible="apd_amount_discount == 0 or move_type not in ('in_invoice', 'in_refund')"/>
                 <field name="apd_amount_discount" widget="monetary" colspan="2"
-                       attrs="{'invisible': ['|', ('apd_amount_discount', '=', 0), ('move_type', 'not in', ('in_invoice', 'in_refund'))]}"/>
+                       invisible="apd_amount_discount == 0 or move_type not in ('in_invoice', 'in_refund')"/>
             </xpath>
         </field>
     </record>

@@ -17,7 +17,7 @@
         <record id="product_purchase_discount" model="product.product">
             <field name="name">Purchase Discount</field>
             <field name="default_code">PURCH-DISC</field>
-            <field name="detailed_type">service</field>
+            <field name="type">service</field>
             <field name="purchase_ok" eval="True"/>
             <field name="sale_ok" eval="False"/>
             <field name="purchase_method">purchase</field>

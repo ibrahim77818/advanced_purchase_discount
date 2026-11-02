@@ -9,55 +9,55 @@
                 <field name="move_id" invisible="1" force_save="1"/>
                 <field name="company_id" invisible="1"/>
                 <field name="currency_id" invisible="1"/>
-                <div class="alert alert-warning" role="alert" attrs="{'invisible': [('preview_error', '=', False)]}">
+                <div class="alert alert-warning" role="alert" invisible="not preview_error">
                     <field name="preview_error" readonly="1" nolabel="1"/>
                 </div>
                 <group>
                     <group string="Discount">
                         <field name="mode" widget="radio"/>
                         <field name="discount_type" widget="radio" options="{'horizontal': true}"
-                               attrs="{'invisible': ['|', ('mode', '=', 'tiered'), '&amp;', ('mode', '=', 'manual'), ('manual_basis', '!=', 'weight')]}"/>
+                               invisible="mode == 'tiered' or (mode == 'manual' and manual_basis != 'weight')"/>
                         <field name="discount_percent"
-                               attrs="{'invisible': ['|', ('discount_type', '!=', 'percent'), '|', ('mode', '=', 'tiered'), '&amp;', ('mode', '=', 'manual'), ('manual_basis', '!=', 'weight')]}"/>
+                               invisible="discount_type != 'percent' or mode == 'tiered' or (mode == 'manual' and manual_basis != 'weight')"/>
                         <field name="discount_amount"
-                               attrs="{'invisible': ['|', ('discount_type', '!=', 'fixed'), '|', ('mode', '=', 'tiered'), '&amp;', ('mode', '=', 'manual'), ('manual_basis', '!=', 'weight')]}"/>
+                               invisible="discount_type != 'fixed' or mode == 'tiered' or (mode == 'manual' and manual_basis != 'weight')"/>
                         <field name="prorate_basis" widget="radio"
-                               attrs="{'invisible': ['|', ('mode', '!=', 'prorate'), ('discount_type', '!=', 'fixed')]}"/>
-                        <field name="manual_basis" widget="radio" attrs="{'invisible': [('mode', '!=', 'manual')]}"/>
+                               invisible="mode != 'prorate' or discount_type != 'fixed'"/>
+                        <field name="manual_basis" widget="radio" invisible="mode != 'manual'"/>
                         <field name="discount_product_id" readonly="1"
-                               attrs="{'invisible': [('mode', '!=', 'discount_line')]}"/>
+                               invisible="mode != 'discount_line'"/>
                         <field name="replace_existing"/>
                     </group>
                     <group string="Preview">
                         <field name="amount_before"/>
                         <field name="amount_discount"/>
                         <field name="amount_after" class="oe_subtotal_footer_separator"/>
-                        <field name="preview_residual" attrs="{'invisible': [('preview_residual', '=', 0)]}"/>
+                        <field name="preview_residual" invisible="preview_residual == 0"/>
                     </group>
                 </group>
                 <div class="text-muted mb-2">
-                    <span attrs="{'invisible': [('mode', '!=', 'prorate')]}">
+                    <span invisible="mode != 'prorate'">
                         Mode A spreads the discount on the selected lines through their discount percentage. Amounts are
                         allocated exactly to the cent and checked against the tax engine.
                     </span>
-                    <span attrs="{'invisible': [('mode', '!=', 'manual')]}">
+                    <span invisible="mode != 'manual'">
                         Mode B lets you weight the lines, or enter a percentage or an amount for each line.
                     </span>
-                    <span attrs="{'invisible': [('mode', '!=', 'discount_line')]}">
+                    <span invisible="mode != 'discount_line'">
                         Mode C adds one negative line per tax group, using the discount product, prorated on the
                         untaxed amount of each tax group.
                     </span>
-                    <span attrs="{'invisible': [('mode', '!=', 'tiered')]}">
+                    <span invisible="mode != 'tiered'">
                         Mode D evaluates vendor agreement discounts and the configured volume tiers automatically.
                     </span>
                 </div>
                 <field name="line_ids" nolabel="1">
-                    <tree editable="bottom" create="false" delete="false">
-                        <field name="sequence" invisible="1"/>
-                        <field name="product_id" invisible="1" force_save="1"/>
-                        <field name="currency_id" invisible="1"/>
-                        <field name="purchase_line_id" invisible="1" force_save="1"/>
-                        <field name="move_line_id" invisible="1" force_save="1"/>
+                    <list editable="bottom" create="false" delete="false">
+                        <field name="sequence" column_invisible="True"/>
+                        <field name="product_id" column_invisible="True" force_save="1"/>
+                        <field name="currency_id" column_invisible="True"/>
+                        <field name="purchase_line_id" column_invisible="True" force_save="1"/>
+                        <field name="move_line_id" column_invisible="True" force_save="1"/>
                         <field name="include" widget="boolean_toggle" string="Use" width="60px"/>
                         <field name="name" force_save="1"/>
                         <field name="quantity" force_save="1"/>
@@ -65,16 +65,16 @@
                         <field name="current_discount" force_save="1"/>
                         <field name="gross_subtotal" sum="Total"/>
                         <field name="weight"
-                               attrs="{'column_invisible': ['|', ('parent.mode', '!=', 'manual'), ('parent.manual_basis', '!=', 'weight')]}"/>
+                               column_invisible="parent.mode != 'manual' or parent.manual_basis != 'weight'"/>
                         <field name="line_percent"
-                               attrs="{'column_invisible': ['|', ('parent.mode', '!=', 'manual'), ('parent.manual_basis', '!=', 'line_percent')]}"/>
+                               column_invisible="parent.mode != 'manual' or parent.manual_basis != 'line_percent'"/>
                         <field name="line_amount" sum="Total"
-                               attrs="{'column_invisible': ['|', ('parent.mode', '!=', 'manual'), ('parent.manual_basis', '!=', 'line_amount')]}"/>
+                               column_invisible="parent.mode != 'manual' or parent.manual_basis != 'line_amount'"/>
                         <field name="new_discount" decoration-bf="new_discount != current_discount"/>
                         <field name="new_subtotal" sum="Total"/>
-                    </tree>
+                    </list>
                 </field>
-                <field name="preview_message" readonly="1" nolabel="1" attrs="{'invisible': [('preview_message', '=', False)]}"/>
+                <field name="preview_message" readonly="1" nolabel="1" invisible="not preview_message"/>
                 <group>
                     <field name="note" placeholder="Reason / reference of the discount (kept in the discount log)"/>
                 </group>

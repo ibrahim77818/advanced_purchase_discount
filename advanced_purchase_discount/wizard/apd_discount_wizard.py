@@ -193,7 +193,7 @@ class ApdDiscountWizardLine(models.TransientModel):
     move_line_id = fields.Many2one('account.move.line', readonly=True)
     name = fields.Char(string='Description', readonly=True)
     product_id = fields.Many2one('product.product', string='Product', readonly=True)
-    quantity = fields.Float(string='Quantity', digits='Product Unit of Measure', readonly=True)
+    quantity = fields.Float(string='Quantity', digits='Product Unit', readonly=True)
     price_unit = fields.Float(string='Unit Price', digits='Product Price', readonly=True)
     current_discount = fields.Float(string='Current Disc. (%)', digits='Purchase Discount', readonly=True)
     gross_subtotal = fields.Monetary(string='Gross Subtotal', readonly=True)

@@ -1,10 +1,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 13:56+0000\n"
-"PO-Revision-Date: 2026-11-01 13:56+0000\n"
+"POT-Creation-Date: 2026-11-02 17:44+0000\n"
+"PO-Revision-Date: 2026-11-02 17:44+0000\n"
 "Last-Translator: Ibrahim Yahia\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -16,56 +16,41 @@ msgstr ""
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
-#, python-format
 msgid "%s previous discount line(s) will be removed."
 msgstr "سيتم حذف %s من سطور الخصم السابقة."
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
 msgid ""
-"<span attrs=\"{'invisible': [('mode', '!=', 'prorate')]}\">\n"
+"<span invisible=\"mode != 'prorate'\">\n"
 "                        Mode A spreads the discount on the selected lines through their discount percentage. Amounts are\n"
 "                        allocated exactly to the cent and checked against the tax engine.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'manual')]}\">\n"
+"                    <span invisible=\"mode != 'manual'\">\n"
 "                        Mode B lets you weight the lines, or enter a percentage or an amount for each line.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'discount_line')]}\">\n"
+"                    <span invisible=\"mode != 'discount_line'\">\n"
 "                        Mode C adds one negative line per tax group, using the discount product, prorated on the\n"
 "                        untaxed amount of each tax group.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'tiered')]}\">\n"
+"                    <span invisible=\"mode != 'tiered'\">\n"
 "                        Mode D evaluates vendor agreement discounts and the configured volume tiers automatically.\n"
 "                    </span>"
 msgstr ""
-"<span attrs=\"{'invisible': [('mode', '!=', 'prorate')]}\">\n"
+"<span invisible=\"mode != 'prorate'\">\n"
 "                        النمط أ يوزّع الخصم على السطور المحددة من خلال نسبة الخصم لكل سطر. تُخصَّص المبالغ بدقة حتى أصغر\n"
 "                        وحدة عملة ويتم التحقق منها عبر محرك الضرائب.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'manual')]}\">\n"
+"                    <span invisible=\"mode != 'manual'\">\n"
 "                        النمط ب يتيح لك ترجيح السطور، أو إدخال نسبة أو مبلغ لكل سطر.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'discount_line')]}\">\n"
+"                    <span invisible=\"mode != 'discount_line'\">\n"
 "                        النمط ج يضيف سطرًا سالبًا لكل مجموعة ضريبية باستخدام منتج الخصم، موزعًا تناسبيًا على\n"
 "                        المبلغ بدون ضريبة لكل مجموعة ضريبية.\n"
 "                    </span>\n"
-"                    <span attrs=\"{'invisible': [('mode', '!=', 'tiered')]}\">\n"
+"                    <span invisible=\"mode != 'tiered'\">\n"
 "                        النمط د يقيّم خصومات اتفاقيات الموردين وشرائح الكمية المُعدّة تلقائيًا.\n"
 "                    </span>"
-
-#. module: advanced_purchase_discount
-#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.res_config_settings_view_form_apd
-msgid ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"القيم المحددة هنا خاصة بكل "
-"شركة.\" groups=\"base.group_multi_company\"/>"
-
-#. module: advanced_purchase_discount
-#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
-msgid "<strong>Disc.%</strong>"
-msgstr "<strong>الخصم %</strong>"
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
@@ -81,7 +66,6 @@ msgstr "أ - توزيع تناسبي"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "A percentage discount cannot exceed 100%."
 msgstr "لا يمكن أن يتجاوز الخصم بالنسبة المئوية 100%."
 
@@ -98,7 +82,6 @@ msgstr "نشط"
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_discount_enabled
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_discount_enabled
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_discount_enabled
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_discount_enabled
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__apd_discount_enabled
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__apd_discount_enabled
@@ -108,18 +91,12 @@ msgstr "خصومات المشتريات المتقدمة"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid ""
 "Advanced Purchase Discounts are not enabled for company \"%s\" (Purchase > "
 "Configuration > Settings)."
 msgstr ""
 "خصومات المشتريات المتقدمة غير مفعّلة للشركة \"%s\" (المشتريات > الإعدادات > "
 "الإعدادات)."
-
-#. module: advanced_purchase_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_product_supplierinfo__apd_discount
-msgid "Agreement Discount (%)"
-msgstr "خصم الاتفاقية (%)"
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
@@ -163,7 +140,6 @@ msgstr ""
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_application_count
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_application_count
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_application_count
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_application_count
 msgid "Apd Application Count"
 msgstr "عدد عمليات الخصم"
@@ -171,7 +147,6 @@ msgstr "عدد عمليات الخصم"
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_has_discount_mismatch
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_has_discount_mismatch
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_has_discount_mismatch
 msgid "Apd Has Discount Mismatch"
 msgstr "يوجد اختلاف في الخصم"
 
@@ -211,7 +186,6 @@ msgstr "التطبيق كـ"
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
-#, python-format
 msgid "Apply Discount"
 msgstr "تطبيق خصم"
 
@@ -224,12 +198,6 @@ msgstr "تطبيق خصم المشتريات"
 #: model:ir.model,name:advanced_purchase_discount.model_apd_discount_wizard_line
 msgid "Apply Purchase Discount - Line"
 msgstr "تطبيق خصم المشتريات - سطر"
-
-#. module: advanced_purchase_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__apd_auto_vendor_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__apd_auto_vendor_discount
-msgid "Apply Vendor Agreement Discounts"
-msgstr "تطبيق خصومات اتفاقيات الموردين"
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
@@ -274,7 +242,6 @@ msgstr "الشركة"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid ""
 "Company \"%s\": a discount service product is required when Advanced "
 "Purchase Discounts are enabled."
@@ -295,19 +262,8 @@ msgstr "ضبط الإعدادات"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid "Configure a discount product in the Purchase settings first."
 msgstr "قم أولًا بتحديد منتج الخصم في إعدادات المشتريات."
-
-#. module: advanced_purchase_discount
-#: model:ir.model.fields,help:advanced_purchase_discount.field_product_supplierinfo__apd_discount
-msgid ""
-"Contractual discount granted by this vendor for this price line. Used by the"
-" tiered volume discount (Mode D) and, when enabled, copied on purchase order"
-" lines."
-msgstr ""
-"خصم تعاقدي يمنحه هذا المورد لسطر السعر هذا. يُستخدم في خصم الشرائح حسب "
-"الكمية (النمط د)، ويُنسخ إلى سطور أمر الشراء عند تفعيل الخيار."
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.actions.act_window,help:advanced_purchase_discount.action_apd_discount_tier
@@ -387,11 +343,6 @@ msgstr ""
 "الفرق بين الخصم المطلوب والخصم المحقق. القيمة صفر تعني أن التوزيع دقيق."
 
 #. module: advanced_purchase_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__discount
-msgid "Disc. (%)"
-msgstr "الخصم (%)"
-
-#. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__discount_after
 msgid "Disc. After (%)"
 msgstr "الخصم بعد (%)"
@@ -400,11 +351,6 @@ msgstr "الخصم بعد (%)"
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__discount_before
 msgid "Disc. Before (%)"
 msgstr "الخصم قبل (%)"
-
-#. module: advanced_purchase_discount
-#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_form_apd
-msgid "Disc.%"
-msgstr "الخصم %"
 
 #. module: advanced_purchase_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
@@ -417,6 +363,7 @@ msgstr "الخصم"
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__discount_percent
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_percent
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__discount
 msgid "Discount (%)"
 msgstr "الخصم (%)"
 
@@ -462,6 +409,11 @@ msgid "Discount Reset"
 msgstr "إلغاء الخصم"
 
 #. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__apd_discount_locked
+msgid "Discount Set by Wizard"
+msgstr "خصم مطبّق بواسطة المعالج"
+
+#. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__discount_type
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_type
 msgid "Discount Type"
@@ -476,7 +428,6 @@ msgstr "قيمة الخصم"
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
-#, python-format
 msgid "Discount applied (%s)."
 msgstr "تم تطبيق الخصم (%s)."
 
@@ -488,7 +439,6 @@ msgstr "الخصم مختلف عن أمر الشراء"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
-#, python-format
 msgid "Discount lines that are already billed cannot be removed: %s"
 msgstr "لا يمكن حذف سطور الخصم التي تمت فوترتها: %s"
 
@@ -511,7 +461,6 @@ msgstr "الخصومات"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
-#, python-format
 msgid ""
 "Discounts can only be applied on RFQs and confirmed (unlocked) purchase "
 "orders."
@@ -522,16 +471,23 @@ msgstr ""
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
-#, python-format
 msgid "Discounts can only be applied on draft vendor bills."
 msgstr "لا يمكن تطبيق الخصومات إلا على فواتير الموردين في حالة المسودة."
 
 #. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__display_name
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_engine__display_name
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__display_name
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__display_name
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_stock_move__display_name
 msgid "Display Name"
 msgstr "الاسم المعروض"
 
@@ -548,14 +504,12 @@ msgstr "نمط التوزيع"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "Document tier \"%(tier)s\": %(pct)s%%"
 msgstr "شريحة المستند \"%(tier)s\": %(pct)s%%"
 
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_discount_enabled
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_discount_enabled
-#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_discount_enabled
 #: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_discount_enabled
 #: model:ir.model.fields,help:advanced_purchase_discount.field_res_company__apd_discount_enabled
 #: model:ir.model.fields,help:advanced_purchase_discount.field_res_config_settings__apd_discount_enabled
@@ -591,7 +545,6 @@ msgstr "مبلغ ثابت"
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_gross
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_amount_gross
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_amount_gross
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_amount_gross
 msgid "Gross Amount"
 msgstr "المبلغ الإجمالي قبل الخصم"
@@ -604,22 +557,24 @@ msgid "Gross Subtotal"
 msgstr "الإجمالي الفرعي قبل الخصم"
 
 #. module: advanced_purchase_discount
-#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
-#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
-msgid "Group By"
-msgstr "تجميع حسب"
-
-#. module: advanced_purchase_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_wizard__prorate_basis
 msgid "How a fixed amount is spread on the selected lines."
 msgstr "طريقة توزيع المبلغ الثابت على السطور المحددة."
 
 #. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__id
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__id
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_engine__id
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__id
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__id
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_stock_move__id
 msgid "ID"
 msgstr "المعرف"
 
@@ -638,15 +593,6 @@ msgstr "قيد اليومية"
 #: model:ir.model,name:advanced_purchase_discount.model_account_move_line
 msgid "Journal Item"
 msgstr "عنصر اليومية"
-
-#. module: advanced_purchase_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application____last_update
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line____last_update
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier____last_update
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard____last_update
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line____last_update
-msgid "Last Modified on"
-msgstr "آخر تعديل في"
 
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__write_uid
@@ -699,14 +645,12 @@ msgstr "مبلغ خصم السطر"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "Line amounts cannot be negative."
 msgstr "لا يمكن أن تكون مبالغ السطور سالبة."
 
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_amount_discount
-#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_amount_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_amount_discount
 msgid "Line discounts plus dedicated discount lines (untaxed)."
 msgstr "خصومات السطور مضافًا إليها سطور الخصم المستقلة (بدون ضريبة)."
@@ -714,7 +658,6 @@ msgstr "خصومات السطور مضافًا إليها سطور الخصم ا
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "Line percentages must be between 0 and 100."
 msgstr "يجب أن تكون نسب السطور بين 0 و100."
 
@@ -734,7 +677,6 @@ msgstr "الحد الأدنى"
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__mode
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
-#, python-format
 msgid "Mode"
 msgstr "النمط"
 
@@ -761,14 +703,12 @@ msgstr "الإجمالي الفرعي الجديد"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
-#, python-format
 msgid "New discount line: %(name)s = %(amount)s"
 msgstr "سطر خصم جديد: %(name)s = %(amount)s"
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "No Tax"
 msgstr "بدون ضريبة"
 
@@ -780,7 +720,6 @@ msgstr "لم يتم تطبيق أي خصم بعد"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid ""
 "No expense account can be found for the discount product \"%(product)s\" in "
 "company \"%(company)s\". Set an expense account on the product or its "
@@ -792,14 +731,12 @@ msgstr ""
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "No vendor agreement or volume tier matched this document."
 msgstr "لا توجد اتفاقية مورد أو شريحة كمية تنطبق على هذا المستند."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
-#, python-format
 msgid "Nothing to apply: the discount does not change the document."
 msgstr "لا يوجد ما يمكن تطبيقه: الخصم لا يغيّر المستند."
 
@@ -931,7 +868,6 @@ msgstr "شريحة خصم المشتريات حسب الكمية"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
-#, python-format
 msgid "Purchase discounts are only available on vendor bills and refunds."
 msgstr ""
 "خصومات المشتريات متاحة فقط على فواتير الموردين وإشعارات الدائن الخاصة بهم."
@@ -1016,7 +952,6 @@ msgstr "النطاق"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_config_settings.py:0
-#, python-format
 msgid ""
 "Select a discount service product to enable Advanced Purchase Discounts."
 msgstr "اختر منتج خدمة للخصم لتفعيل خصومات المشتريات المتقدمة."
@@ -1024,7 +959,6 @@ msgstr "اختر منتج خدمة للخصم لتفعيل خصومات المش
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "Select at least one eligible line."
 msgstr "اختر سطرًا مؤهلًا واحدًا على الأقل."
 
@@ -1076,21 +1010,8 @@ msgid "Subtotal Before"
 msgstr "الإجمالي الفرعي قبل"
 
 #. module: advanced_purchase_discount
-#: model:ir.model,name:advanced_purchase_discount.model_product_supplierinfo
-msgid "Supplier Pricelist"
-msgstr "قائمة أسعار المورد"
-
-#. module: advanced_purchase_discount
-#. odoo-python
-#: code:addons/advanced_purchase_discount/models/product_supplierinfo.py:0
-#, python-format
-msgid "The agreement discount must be between 0 and 100."
-msgstr "يجب أن يكون خصم الاتفاقية بين 0 و100."
-
-#. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid ""
 "The discount (%(discount)s) is higher than the eligible amount "
 "(%(eligible)s)."
@@ -1099,14 +1020,12 @@ msgstr "الخصم (%(discount)s) أكبر من المبلغ المؤهل (%(eli
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "The discount amount cannot be negative."
 msgstr "لا يمكن أن يكون مبلغ الخصم سالبًا."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid ""
 "The discount cannot be distributed: all eligible lines have a zero weight."
 msgstr "لا يمكن توزيع الخصم: جميع السطور المؤهلة وزنها صفر."
@@ -1119,14 +1038,12 @@ msgstr "يجب أن يكون خصم سطر أمر الشراء بين 0 و100."
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "The discount of line \"%s\" is higher than its amount."
 msgstr "خصم السطر \"%s\" أكبر من مبلغه."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid ""
 "The discount product \"%(product)s\" belongs to another company "
 "(%(company)s)."
@@ -1135,28 +1052,34 @@ msgstr "منتج الخصم \"%(product)s\" يتبع شركة أخرى (%(compan
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid "The discount product \"%s\" must be a service product."
 msgstr "يجب أن يكون منتج الخصم \"%s\" منتج خدمة."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid "The discount product \"%s\" must be purchasable."
 msgstr "يجب أن يكون منتج الخصم \"%s\" قابلًا للشراء."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "The discount value cannot be negative."
 msgstr "لا يمكن أن تكون قيمة الخصم سالبة."
 
 #. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order_line__apd_discount_locked
+msgid ""
+"The discount was applied with the discount wizard: it is kept when the "
+"quantity or the unit of measure changes, instead of being reset from the "
+"vendor pricelist."
+msgstr ""
+"تم تطبيق الخصم بواسطة معالج الخصم: يُحتفظ به عند تغيير الكمية أو وحدة القياس"
+" بدلًا من إعادة احتسابه من قائمة أسعار المورد."
+
+#. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
-#, python-format
 msgid ""
 "The discount wizard must be opened from a purchase order or a vendor bill."
 msgstr "يجب فتح معالج الخصم من أمر شراء أو من فاتورة مورد."
@@ -1164,7 +1087,6 @@ msgstr "يجب فتح معالج الخصم من أمر شراء أو من فا�
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid ""
 "The expense account \"%(account)s\" of the discount product does not belong "
 "to company \"%(company)s\"."
@@ -1173,42 +1095,36 @@ msgstr "حساب المصروفات \"%(account)s\" لمنتج الخصم لا �
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
-msgid "The expense account \"%s\" of the discount product is deprecated."
-msgstr "حساب المصروفات \"%s\" لمنتج الخصم موقوف."
+msgid "The expense account \"%s\" of the discount product is archived."
+msgstr "حساب المصروفات \"%s\" لمنتج الخصم مؤرشف."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
-#, python-format
 msgid "The minimum threshold cannot be negative."
 msgstr "لا يمكن أن يكون الحد الأدنى سالبًا."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
-#, python-format
 msgid "The tier discount must be greater than 0 and at most 100."
 msgstr "يجب أن يكون خصم الشريحة أكبر من 0 ولا يتجاوز 100."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
-#, python-format
 msgid "The tier start date must be before its end date."
 msgstr "يجب أن يكون تاريخ بداية الشريحة قبل تاريخ نهايتها."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/res_company.py:0
-#, python-format
 msgid "The vendor taxes of the discount product must be purchase taxes (%s)."
 msgstr "يجب أن تكون ضرائب المورد لمنتج الخصم ضرائب مشتريات (%s)."
 
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
-#, python-format
 msgid "There is no discount to reset on this document."
 msgstr "لا يوجد خصم لإلغائه في هذا المستند."
 
@@ -1236,7 +1152,6 @@ msgstr "الإجمالي"
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_amount_discount
-#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_amount_discount
 #: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_amount_discount
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_tree_apd
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
@@ -1256,7 +1171,6 @@ msgstr "سعر الوحدة"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "Unknown distribution mode."
 msgstr "نمط توزيع غير معروف."
 
@@ -1286,7 +1200,6 @@ msgstr "بدون ضريبة قبل"
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
-#, python-format
 msgid "Untaxed after"
 msgstr "بدون ضريبة بعد"
 
@@ -1298,7 +1211,6 @@ msgstr "مبلغ السطر بدون ضريبة وقبل الخصم."
 #. module: advanced_purchase_discount
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_gross
 #: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_amount_gross
-#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_amount_gross
 #: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_amount_gross
 msgid "Untaxed amount of the lines before any discount."
 msgstr "مبلغ السطور بدون ضريبة قبل أي خصم."
@@ -1307,7 +1219,6 @@ msgstr "مبلغ السطور بدون ضريبة قبل أي خصم."
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/account_move.py:0
 #: code:addons/advanced_purchase_discount/models/purchase_order.py:0
-#, python-format
 msgid "Untaxed before"
 msgstr "بدون ضريبة قبل"
 
@@ -1382,16 +1293,6 @@ msgid "Weight"
 msgstr "الوزن"
 
 #. module: advanced_purchase_discount
-#: model:ir.model.fields,help:advanced_purchase_discount.field_res_company__apd_auto_vendor_discount
-#: model:ir.model.fields,help:advanced_purchase_discount.field_res_config_settings__apd_auto_vendor_discount
-msgid ""
-"When a vendor pricelist line carries an agreement discount, copy it on the "
-"purchase order line automatically when the vendor price is selected."
-msgstr ""
-"عندما يحتوي سطر قائمة أسعار المورد على خصم اتفاقية، يُنسخ تلقائيًا إلى سطر "
-"أمر الشراء عند اختيار سعر المورد."
-
-#. module: advanced_purchase_discount
 #: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__scope__order
 #: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
 msgid "Whole Document"
@@ -1415,6 +1316,5 @@ msgstr "مثال: 5% فوق 100 وحدة"
 #. module: advanced_purchase_discount
 #. odoo-python
 #: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
-#, python-format
 msgid "vendor agreement"
 msgstr "اتفاقية المورد"

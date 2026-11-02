@@ -20,7 +20,7 @@ class AccountMove(models.Model):
     apd_has_discount_mismatch = fields.Boolean(compute='_compute_apd_has_discount_mismatch')
     apd_application_count = fields.Integer(compute='_compute_apd_application_count')
 
-    @api.depends('invoice_line_ids.apd_gross_subtotal', 'invoice_line_ids.price_subtotal',
+    @api.depends('invoice_line_ids.apd_gross_subtotal', 'amount_untaxed',
                  'invoice_line_ids.apd_is_discount_line', 'invoice_line_ids.display_type')
     def _compute_apd_amounts(self):
         for move in self:
@@ -29,7 +29,8 @@ class AccountMove(models.Model):
                 continue
             lines = move.invoice_line_ids.filtered(lambda l: l.display_type == 'product')
             gross = sum(lines.filtered(lambda l: not l.apd_is_discount_line).mapped('apd_gross_subtotal'))
-            net = sum(lines.mapped('price_subtotal'))
+            # Odoo 18: line subtotals are raw (unrounded); the move total holds the rounded amount.
+            net = move.amount_untaxed
             move.apd_amount_gross = gross
             move.apd_amount_discount = move.currency_id.round(gross - net) if move.currency_id else gross - net
 
@@ -117,8 +118,23 @@ class AccountMove(models.Model):
         return self.invoice_line_ids.filtered(lambda l: l.display_type == 'product' and l.apd_is_discount_line)
 
     def _apd_amount_untaxed(self):
-        lines = self.invoice_line_ids.filtered(lambda l: l.display_type == 'product')
-        return self.currency_id.round(sum(lines.mapped('price_subtotal')))
+        return self.amount_untaxed
+
+    def _apd_raw_untaxed_for(self, taxes, price_unit):
+        """Raw untaxed amount of a hypothetical one-unit discount line (Odoo 18 tax engine)."""
+        AccountTax = self.env['account.tax']
+        base_line = AccountTax._prepare_base_line_for_taxes_computation(
+            {},
+            tax_ids=taxes,
+            price_unit=price_unit,
+            quantity=1.0,
+            currency_id=self.currency_id,
+            partner_id=self.partner_id,
+            product_id=self.company_id.apd_discount_product_id,
+            is_refund=self._apd_is_refund(),
+        )
+        AccountTax._add_tax_details_in_base_line(base_line, self.company_id)
+        return base_line['tax_details']['raw_total_excluded_currency']
 
     def _apd_check_editable(self):
         for move in self:
@@ -203,17 +219,17 @@ class AccountMoveLine(models.Model):
     def _apd_currency(self):
         return self.currency_id or self.move_id.currency_id
 
-    def _apd_untaxed(self, discount):
-        """Same formula as ``account.move.line._compute_totals``."""
+    def _apd_untaxed_raw(self, discount):
+        """Raw untaxed amount for a given discount, as ``account.move.line._compute_totals`` (Odoo 18)."""
         self.ensure_one()
+        base_line = self.move_id._prepare_product_base_line_for_taxes_computation(self)
+        base_line['discount'] = discount
+        self.env['account.tax']._add_tax_details_in_base_line(base_line, self.company_id or self.move_id.company_id)
+        return base_line['tax_details']['raw_total_excluded_currency']
+
+    def _apd_untaxed(self, discount):
+        amount = self._apd_untaxed_raw(discount)
         currency = self._apd_currency()
-        price = self.price_unit * (1 - (discount / 100.0))
-        if self.tax_ids:
-            amount = self.tax_ids.compute_all(
-                price, quantity=self.quantity, currency=currency, product=self.product_id,
-                partner=self.partner_id, is_refund=self.is_refund)['total_excluded']
-        else:
-            amount = self.quantity * price
         return currency.round(amount) if currency else amount
 
     def _apd_taxes(self):

@@ -1,4 +1,4 @@
-<!-- Odoo Apps description page for advanced_purchase_discount (Odoo 16.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
+<!-- Odoo Apps description page for advanced_purchase_discount (Odoo 19.0). Inline styles only: apps.odoo.com strips <style> and <script> blocks. -->
 <section style="max-width:1120px;margin:0 auto;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#2b2b33;">
 
 <!-- ============================== HERO ============================== -->
@@ -7,9 +7,9 @@
   <h1 style="font-size:40px;line-height:1.15;font-weight:700;margin:0 0 14px;color:#ffffff;">Advanced Purchase &amp; Vendor Bill Discounts</h1>
   <p style="font-size:19px;line-height:1.55;max-width:760px;margin:0 0 24px;color:#ffffff;opacity:.95;">Apply a percentage or a fixed amount to a purchase order or a vendor bill and let Odoo spread it proportionally, by your own weights, as one discount line per tax group, or from volume tiers. The result is exact to the cent and flows from the order to the receipt valuation, the bill and the journal entries.</p>
   <div>
-    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 16.0</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Odoo 19.0</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Community &amp; Enterprise</span>
-    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">24 automated tests</span>
+    <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">27 automated tests</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">English &amp; Arabic</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">Technical name: advanced_purchase_discount</span>
     <span style="display:inline-block;border:1px solid rgba(255,255,255,.7);border-radius:20px;padding:6px 14px;margin:0 8px 8px 0;font-size:14px;">LGPL-3</span>
@@ -26,27 +26,27 @@
 
 <!-- ============================== WHY ============================== -->
 <h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Why this module</h2>
-<p style="font-size:16px;color:#555;margin:0 0 18px;">Vendors grant discounts as lump sums, percentages on the whole order or volume deals. Odoo 16 has no tool to apply them to a purchase order.</p>
+<p style="font-size:16px;color:#555;margin:0 0 18px;">Vendors grant discounts as lump sums, percentages on the whole order or volume deals. Odoo 19 has a discount per line, but no tool to apply an order-level or fixed-amount discount.</p>
 <div style="display:flex;flex-wrap:wrap;margin:0 -10px;">
   <div style="flex:1 1 440px;margin:10px;border:1px solid #f1d6d6;background:#fff8f8;border-radius:14px;padding:24px 26px;">
-    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 16</h3>
+    <h3 style="font-size:19px;font-weight:700;color:#b33939;margin:0 0 12px;">In standard Odoo 19</h3>
     <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
-      <li>Purchase order lines have <b>no discount field</b>: buyers lower the unit price by hand.</li>
-      <li>A <b>fixed amount</b> (e.g. &ldquo;$&nbsp;250 off&rdquo;) must be split across lines manually, and the cents rarely add up.</li>
-      <li>There is <b>no order-level discount</b> and no discount line split by tax rate.</li>
-      <li>Vendor pricelists give price breaks by quantity, but <b>no agreement discount</b> and no rules by category, amount or whole order.</li>
-      <li>The vendor bill shows the reduced price with <b>no link to the negotiated discount</b>.</li>
-      <li>Nobody can tell <b>who changed the prices, when and why</b>.</li>
+      <li>The <b>Disc.%</b> column works line by line, with 2 decimals: there is <b>no order-level discount</b>.</li>
+      <li>A <b>fixed amount</b> (e.g. &ldquo;$&nbsp;250 off&rdquo;) must be turned into line percentages by hand, and the cents rarely add up.</li>
+      <li>There is <b>no discount line split by tax rate</b>.</li>
+      <li>Vendor pricelists carry a discount per price break, but <b>no rules by category, amount or whole order</b>.</li>
+      <li>Changing a quantity <b>resets the line discount</b> from the vendor pricelist, and confirming an order <b>copies one-off discounts into the vendor pricelist</b>.</li>
+      <li>Nobody can tell <b>who changed the discounts, when and why</b>.</li>
     </ul>
   </div>
   <div style="flex:1 1 440px;margin:10px;border:1px solid #cfe7e7;background:#f4fbfb;border-radius:14px;padding:24px 26px;">
     <h3 style="font-size:19px;font-weight:700;color:#017E84;margin:0 0 12px;">With this module</h3>
     <ul style="font-size:15px;line-height:1.65;margin:0;padding-left:20px;color:#3a3a42;">
-      <li>A real <b>Disc. (%)</b> column on purchase order lines; the unit price stays the vendor price.</li>
+      <li>A <b>Discount</b> button applies a percentage or a fixed amount to the whole order or bill.</li>
       <li>Fixed amounts are <b>allocated exactly</b> and checked against Odoo&rsquo;s tax engine: $&nbsp;250 off is $&nbsp;250.00.</li>
-      <li>A <b>Discount</b> button with four modes, including <b>one negative line per tax group</b>.</li>
-      <li><b>Agreement Discount (%)</b> on vendor pricelists plus <b>Volume Discount Tiers</b> by quantity, amount, vendor, product, category or whole document.</li>
-      <li>The discount <b>travels with the line</b>: receipt valuation, vendor bill and journal entries use the net cost.</li>
+      <li>Four modes, including <b>one negative line per tax group</b>.</li>
+      <li><b>Volume Discount Tiers</b> by quantity, amount, vendor, product, category or whole document, combined with the pricelist discount.</li>
+      <li>Wizard discounts <b>survive quantity changes</b> and are <b>not copied into vendor pricelists</b>; receipt valuation, bill and journal entries use the net cost.</li>
       <li>A <b>Discount Log</b> records every operation, line by line.</li>
     </ul>
   </div>
@@ -64,7 +64,7 @@
 
 <!-- ============================== FEATURES ============================== -->
 <h2 style="font-size:28px;font-weight:700;margin:40px 0 6px;color:#2b2b33;">Features</h2>
-<p style="font-size:16px;color:#555;margin:0 0 6px;">Screenshots use the Odoo 16 demo data (vendors Wood Corner, Azure Interior and Ready Mat) in USD, with 15% and 5% purchase taxes and average-cost, real-time inventory valuation.</p>
+<p style="font-size:16px;color:#555;margin:0 0 6px;">Screenshots use the Odoo 19 demo data (vendors Wood Corner, Azure Interior and Ready Mat) in USD, with 15% and 5% purchase taxes and average-cost, real-time inventory valuation.</p>
 
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Menus</div>
@@ -76,8 +76,8 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 1</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">One switch per company, with a validated discount product</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;"><b>Purchase &rsaquo; Configuration &rsaquo; Settings &rsaquo; Invoicing &rsaquo; Advanced Purchase Discounts</b> is off by default. When you turn it on, a <b>Discount Product</b> is required. It is checked on save: it must be a purchasable <b>service</b>, belong to the company (or be shared), have an expense account for that company that is not deprecated, and carry purchase taxes only. A ready-made <b>Purchase Discount</b> product is created on install. <b>Apply Vendor Agreement Discounts</b> copies the vendor&rsquo;s agreement discount onto new order lines.</p>
-  <img src="apd_01_settings.png" alt="Purchase settings with Advanced Purchase Discounts, Discount Product and Apply Vendor Agreement Discounts" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;"><b>Purchase &rsaquo; Configuration &rsaquo; Settings &rsaquo; Invoicing &rsaquo; Advanced Purchase Discounts</b> is off by default. When you turn it on, a <b>Discount Product</b> is required. It is checked on save: it must be a purchasable <b>service</b>, belong to the company (or be shared), have an expense account for that company that is not deprecated, and carry purchase taxes only. A ready-made <b>Purchase Discount</b> product is created on install. The <b>Volume Discount Tiers</b> link opens the tier rules.</p>
+  <img src="apd_01_settings.png" alt="Purchase settings with Advanced Purchase Discounts and Discount Product" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
 <div style="margin:44px 0 0;">
@@ -99,7 +99,7 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 4</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Mode C: one discount line per tax group</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Instead of touching the lines, the wizard adds a negative line with the discount product <b>for each combination of taxes</b> on the document. The amount is split according to each group&rsquo;s untaxed total, so the tax is reduced correctly at each rate. Tax-included prices and fiscal-position taxes are kept. On purchase orders the discount lines are shown in blue and locked against manual edits.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Instead of touching the lines, the wizard adds a negative line with the discount product <b>for each combination of taxes</b> on the document. The amount is split according to each group&rsquo;s untaxed total, so the tax is reduced correctly at each rate. Tax-included prices and fiscal-position taxes are kept. On purchase orders the discount lines are shown in blue, locked against manual edits, and billed in full on the first bill.</p>
   <img src="apd_06_wizard_c.png" alt="Mode C preview of a 750 USD dedicated discount line" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
   <img src="apd_07_po_mode_c.png" alt="Request for quotation with two discount lines, one for the 15% tax and one for the 5% tax" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
   <div style="font-size:13px;color:#777;margin:6px 0 0;">8% on an order mixing 15% and 5% taxes: &minus;$&nbsp;733.50 at 15% and &minus;$&nbsp;71.92 at 5%.</div>
@@ -108,23 +108,23 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 5</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Mode D: smart tiered volume discounts</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">No value to type: the wizard evaluates the vendor&rsquo;s agreement discount and every <b>Volume Discount Tier</b> that matches the vendor, the date, the product or category, and the quantity or untaxed amount. The best line discount wins, then the <b>Whole Document</b> tier is applied on top. The preview explains which rule applied to which line. On this Wood Corner order: 10% on 120 chairs, 5% on desks above $&nbsp;10,000, 6% on 60 drawers, then the 2% contract tier above $&nbsp;25,000.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">No value to type: the wizard evaluates the vendor pricelist discount and every <b>Volume Discount Tier</b> that matches the vendor, the date, the product or category, and the quantity or untaxed amount. The best line discount wins, then the <b>Whole Document</b> tier is applied on top. The preview explains which rule applied to which line. On this Wood Corner order: 10% on 120 chairs, 5% on desks above $&nbsp;10,000, 6% on 60 drawers, then the 2% contract tier above $&nbsp;25,000.</p>
   <img src="apd_08_wizard_d.png" alt="Mode D preview with tier explanations per line" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
   <img src="apd_09_tiers.png" alt="Volume Discount Tiers list" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 6</div>
-  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Tier rules and vendor agreements</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">A tier has a <b>Scope</b> (<b>Per Line</b> or <b>Whole Document</b>), a threshold on <b>Quantity</b> or <b>Untaxed Amount</b> (in company currency), a <b>Discount (%)</b>, optional <b>Vendors</b>, <b>Products</b>, <b>Product Categories</b> (child categories included) and validity dates. A Whole Document tier is applied <b>Prorate on Lines</b> or as a <b>Dedicated Discount Line</b>. On vendor pricelists, the <b>Agreement Discount (%)</b> column records the contract discount for each price break.</p>
+  <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Tier rules and vendor pricelist discounts</h3>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">A tier has a <b>Scope</b> (<b>Per Line</b> or <b>Whole Document</b>), a threshold on <b>Quantity</b> or <b>Untaxed Amount</b> (in company currency), a <b>Discount (%)</b>, optional <b>Vendors</b>, <b>Products</b>, <b>Product Categories</b> (child categories included) and validity dates. A Whole Document tier is applied <b>Prorate on Lines</b> or as a <b>Dedicated Discount Line</b>. Vendor agreements use Odoo&rsquo;s native <b>Discount (%)</b> on vendor pricelists (4% and 7.5% on the Wood Corner chair below). When an order is confirmed, Odoo 19 adds the vendor to the pricelist and copies the line discount; the module keeps the vendor price but <b>does not copy a discount set by the wizard</b> (Azure Interior below: $&nbsp;129.45 at 0%).</p>
   <img src="apd_10_tier_form.png" alt="Volume discount tier form" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
-  <img src="apd_11_vendor_pricelist.png" alt="Vendor pricelists with the Agreement Discount column" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="apd_11_vendor_pricelist.png" alt="Vendor pricelists for Office Chair Black with their discounts" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 7</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">A clear purchase order and printout</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Order lines show <b>Disc.%</b> next to the vendor&rsquo;s <b>Unit Price</b>; the totals add <b>Gross Amount</b> and <b>Total Discount</b> above the untaxed amount. The printed purchase order gets a <b>Disc.%</b> column and the same summary, shown only when the order has a discount.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The <b>Disc.%</b> column, hidden by default in Odoo 19, is shown on order lines while the <b>Unit Price</b> stays the vendor price; the totals add <b>Gross Amount</b> and <b>Total Discount</b> above the untaxed amount. On the printed purchase order, the <b>Disc.</b> column prints without trailing zeros (11.8 rather than 11.800000), and the same summary is added when the order has a discount.</p>
   <img src="apd_02_po_form.png" alt="Purchase order with discount column, gross amount and total discount" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
   <img src="apd_20_report.png" alt="Printed purchase order with discount column and gross amount" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
@@ -132,17 +132,17 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 8</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Receipts valued at the discounted cost</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The stock move price is the net price, so inventory valuation reflects what you really pay: the Office Chair at $&nbsp;129.45 with a 5.576799% discount is valued at $&nbsp;122.23. The optional <b>PO Disc. (%)</b> column on receipts shows the discount of the originating line. Changing a discount on a confirmed order updates the price of the receipts not yet done.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Receipts are valued at the net price, so inventory valuation reflects what you really pay: the 12 Office Chair Black at $&nbsp;129.45 with a 5.576799% discount are valued at $&nbsp;1,466.77 ($&nbsp;122.23 each). Odoo 19 stores this value on the stock move; <b>Inventory &rsaquo; Reporting &rsaquo; Moves Analysis</b> shows it in the <b>Value</b> column. The optional <b>PO Disc. (%)</b> column on receipts shows the discount of the originating line. If you change a discount on a confirmed order, receipts validated afterwards use the new net price.</p>
   <img src="apd_12_receipt.png" alt="Receipt with the PO discount column" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
-  <img src="apd_13_valuation.png" alt="Stock valuation at the discounted unit cost" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="apd_13_valuation.png" alt="Moves Analysis with the value of each receipt move at the discounted cost" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 9</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Bills that match the order, entries that balance</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Bills created from the order carry the same <b>Disc.%</b>; the optional <b>PO Disc. (%)</b> column shows the order value side by side. Because receipt and bill use the same net cost, the stock interim account is fully reconciled and <b>no price-difference entry</b> is created. Gross $&nbsp;4,482.95, discount $&nbsp;250.00, untaxed $&nbsp;4,232.95.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">Bills created from the order carry the same <b>Disc.%</b>; the optional <b>PO Disc. (%)</b> column shows the order value side by side. In Odoo 19 the bill posts the goods on the <b>Stock Valuation</b> account at the same net cost as the receipt moves, so <b>no price-difference line</b> is created. Gross $&nbsp;4,482.95, discount $&nbsp;250.00, untaxed $&nbsp;4,232.95.</p>
   <img src="apd_14_bill.png" alt="Vendor bill with discount and PO discount columns" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);margin-bottom:22px;"/>
-  <img src="apd_15_bill_journal.png" alt="Journal items of the vendor bill on the stock interim account" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
+  <img src="apd_15_bill_journal.png" alt="Journal items of the vendor bill on the stock valuation account" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
 <div style="margin:44px 0 0;">
@@ -155,7 +155,7 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 11</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Discounts directly on vendor bills</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The same wizard works on draft <b>vendor bills</b> and <b>refunds</b>, with or without a purchase order. Here, a $&nbsp;300 early-settlement discount is added as two lines (15% and 5% taxes), posted to the discount product&rsquo;s expense account <b>Purchase Discounts Received</b>.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">The same wizard works on draft <b>vendor bills</b> and <b>refunds</b> (the tax engine runs in refund mode), with or without a purchase order. Here, a $&nbsp;300 early-settlement discount is added as two lines (15% and 5% taxes), posted to the discount product&rsquo;s expense account <b>Purchase Discounts Received</b>.</p>
   <img src="apd_17_bill_mode_c.png" alt="Vendor bill with dedicated discount lines per tax group" style="width:100%;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
@@ -170,7 +170,7 @@
 <div style="margin:44px 0 0;">
   <div style="font-size:13px;font-weight:700;color:#017E84;letter-spacing:1px;text-transform:uppercase;">Feature 13</div>
   <h3 style="font-size:23px;font-weight:700;margin:4px 0 8px;">Fully translated into Arabic</h3>
-  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">All 218 terms are translated: settings, wizard, tiers, log, reports, error messages and the discount product. Odoo&rsquo;s right-to-left layout is supported.</p>
+  <p style="font-size:15px;line-height:1.6;color:#555;margin:0 0 14px;">All 209 terms are translated: settings, wizard, tiers, log, reports, error messages and the discount product. Odoo&rsquo;s right-to-left layout is supported.</p>
   <img src="apd_21_arabic.png" alt="Discount wizard in Arabic" style="width:100%;max-width:1000px;border:1px solid #e1e1e6;border-radius:10px;box-shadow:0 6px 24px rgba(30,30,60,.10);"/>
 </div>
 
@@ -181,23 +181,23 @@
   <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#dbeafe;color:#1d4ed8;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">A &middot; Proportional</span> same % on every line, or a fixed amount by line amount, quantity or evenly</div>
   <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#fef3c7;color:#b45309;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">B &middot; Weighted</span> your weights, or a specific % or amount per line</div>
   <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#d1fae5;color:#047857;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">C &middot; Discount line</span> one negative line per tax group, posted to a discount account</div>
-  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#fee2e2;color:#b91c1c;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">D &middot; Tiered</span> vendor agreements and volume tiers, evaluated automatically</div>
+  <div style="margin-bottom:6px;"><span style="display:inline-block;min-width:150px;text-align:center;background:#fee2e2;color:#b91c1c;border-radius:10px;padding:1px 8px;font-size:13px;margin-right:10px;">D &middot; Tiered</span> vendor pricelist discounts and volume tiers, evaluated automatically</div>
 </div>
-<div style="background:#f4fbfb;border-left:4px solid #017E84;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.6;margin-top:14px;"><b>Exact to the cent:</b> a fixed amount is first allocated in whole cents (largest remainder, never more than a line&rsquo;s amount). Each line&rsquo;s percentage is then solved and checked against Odoo&rsquo;s own subtotal calculation, using the <b>Purchase Discount</b> precision (6 decimals). Example: $&nbsp;9.99 off 3 &times; $&nbsp;33.33 = $&nbsp;99.99 gives a discount of 9.990999% and an untaxed amount of exactly $&nbsp;90.00. <b>Replace Existing Discounts</b> (default) starts from the gross prices; untick it to stack, e.g. 10% then 10% = 19%.</div>
+<div style="background:#f4fbfb;border-left:4px solid #017E84;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.6;margin-top:14px;"><b>Exact to the cent:</b> a fixed amount is first allocated in whole cents (largest remainder, never more than a line&rsquo;s amount). Each line&rsquo;s percentage is then solved and checked against Odoo&rsquo;s own subtotal calculation, using the <b>Purchase Discount</b> precision (6 decimals). Since Odoo 18, documents are rounded from raw line amounts and, with <b>Round Globally</b>, per tax group, so the engine solves each line on its raw amount and the document total still lands on the cent. Example: $&nbsp;9.99 off 3 &times; $&nbsp;33.33 = $&nbsp;99.99 gives a discount of 9.990999% and an untaxed amount of exactly $&nbsp;90.00. <b>Replace Existing Discounts</b> (default) starts from the gross prices; untick it to stack, e.g. 10% then 10% = 19%.</div>
 
 <!-- ============================== CORNER CASES ============================== -->
 <h2 style="font-size:28px;font-weight:700;margin:48px 0 6px;color:#2b2b33;">Built for real-world corner cases</h2>
 <p style="font-size:16px;color:#555;margin:0 0 18px;">What happens in the situations that usually break discount tools.</p>
 <div style="display:flex;flex-wrap:wrap;margin:0 -8px;font-size:15px;line-height:1.55;">
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Tax-included prices</b><br/><span style="color:#555;">Fixed amounts are tax excluded; price-included taxes are handled in all modes, including the price of Mode C lines.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Tax-included prices and rounding</b><br/><span style="color:#555;">Fixed amounts are tax excluded; tax-included prices (per tax or company-wide) are handled, and fixed amounts stay exact with both <b>Round per Line</b> and <b>Round Globally</b>.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Fiscal positions</b><br/><span style="color:#555;">Discount lines use the taxes already mapped on the lines; the expense account is mapped by the fiscal position.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Discount above the amount</b><br/><span style="color:#555;">Blocked with a clear message; no line can go below zero, and the preview shows the warning before you apply.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Already billed lines</b><br/><span style="color:#555;">Excluded from the wizard; billed discount lines cannot be removed. Posted bills and locked or cancelled orders are refused.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Confirmed orders</b><br/><span style="color:#555;">Discounts can still change before billing; pending receipts get the new net price, and removed discount lines are set to quantity 0.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Refunds</b><br/><span style="color:#555;">Vendor refunds accept every mode, and the tax engine runs in refund mode.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Already billed lines</b><br/><span style="color:#555;">Excluded from the wizard; billed discount lines cannot be removed. Posted bills, locked or cancelled orders and down-payment lines are refused.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Confirmed orders</b><br/><span style="color:#555;">Discounts can still change before billing; receipts validated afterwards use the new net price, and removed discount lines are set to quantity 0.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Quantity changes</b><br/><span style="color:#555;">Odoo 19 recomputes a line discount from the vendor pricelist when the quantity changes; discounts set by the wizard are kept. Other lines follow the standard logic.</span></div>
+  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Vendor pricelist on confirmation</b><br/><span style="color:#555;">Wizard discounts are not saved as vendor discounts, and the discount product is never added to a vendor pricelist with a negative price.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Units of measure and currencies</b><br/><span style="color:#555;">Quantity tiers use the product unit of measure; amount tiers convert the document currency into the company currency at the document date.</span></div>
   <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Multi-company</b><br/><span style="color:#555;">Setting, discount product, tiers and log are per company, with record rules. A company without the setting cannot open the wizard.</span></div>
-  <div style="flex:1 1 320px;margin:8px;padding:16px 18px;border:1px solid #e8e8ee;border-radius:12px;"><b>Dedicated discount line billing</b><br/><span style="color:#555;">A Mode C line on a purchase order is billed in full on the first bill, whatever the product&rsquo;s billing policy.</span></div>
 </div>
 
 <!-- ============================== SECURITY ============================== -->
@@ -218,18 +218,19 @@
 <h2 style="font-size:28px;font-weight:700;margin:48px 0 6px;color:#2b2b33;">Technical details</h2>
 <table style="width:100%;border-collapse:collapse;font-size:15px;">
   <tbody>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Odoo version</td><td style="padding:10px 14px;">16.0, Community and Enterprise</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Odoo version</td><td style="padding:10px 14px;">19.0, Community and Enterprise</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Depends on</td><td style="padding:10px 14px;"><code>purchase_stock</code> (brings <code>purchase</code>, <code>stock</code>, <code>account</code>)</td></tr>
     <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Python dependency</td><td style="padding:10px 14px;">None</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Menus</td><td style="padding:10px 14px;">Purchase &rsaquo; Reporting &rsaquo; Discount Log; Purchase &rsaquo; Configuration &rsaquo; Volume Discount Tiers</td></tr>
     <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Settings</td><td style="padding:10px 14px;">Purchase &rsaquo; Configuration &rsaquo; Settings &rsaquo; Invoicing &rsaquo; Advanced Purchase Discounts</td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">New models</td><td style="padding:10px 14px;"><code>apd.discount.tier</code>, <code>apd.discount.application</code> (+ <code>.line</code>), <code>apd.discount.wizard</code> (+ <code>.line</code>), <code>apd.discount.engine</code></td></tr>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Extended models</td><td style="padding:10px 14px;"><code>purchase.order</code> / <code>.line</code> (new <code>discount</code> field), <code>account.move</code> / <code>.line</code>, <code>stock.move</code>, <code>product.supplierinfo</code>, <code>res.company</code>, <code>res.config.settings</code></td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Extended models</td><td style="padding:10px 14px;"><code>purchase.order</code> / <code>.line</code> (precision of the native <code>discount</code> raised), <code>account.move</code> / <code>.line</code>, <code>stock.move</code>, <code>res.company</code>, <code>res.config.settings</code></td></tr>
     <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Decimal precision</td><td style="padding:10px 14px;"><b>Purchase Discount</b>, 6 digits, used by purchase order and journal item discounts (editable in Technical settings)</td></tr>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Reports</td><td style="padding:10px 14px;">Purchase order: Disc.% column, gross amount and total discount. Invoice: discounts printed without trailing zeros</td></tr>
-    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Automated tests</td><td style="padding:10px 14px;">24: settings validation, the four modes, exact fixed amounts, tax-included prices, stacking, fiscal positions, tiers and agreements, PO &rarr; receipt valuation &rarr; bill &rarr; posting with reconciled interim accounts, bills and refunds, mismatch fix, wizard preview through the form view</td></tr>
-    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Languages</td><td style="padding:10px 14px;">English, Arabic</td></tr>
-    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">License</td><td style="padding:10px 14px;">LGPL-3</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Reports</td><td style="padding:10px 14px;">Purchase order: gross amount and total discount; Disc. column and invoice discounts printed without trailing zeros</td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Automated tests</td><td style="padding:10px 14px;">27: settings validation, the four modes, exact fixed amounts with Round per Line and Round Globally, tax-included prices, stacking, fiscal positions, tiers and pricelist discounts, discounts kept on quantity change, no discount copied to vendor pricelists, PO &rarr; receipt valuation &rarr; bill &rarr; posting with reconciled interim accounts, bills and refunds, mismatch fix, wizard preview through the form view</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">Upgrade from 16.0 / 17.0 / 18.0</td><td style="padding:10px 14px;">Migration script copies the 16.0 <i>Agreement Discount (%)</i> of vendor pricelists into Odoo&rsquo;s native <b>Discount (%)</b></td></tr>
+    <tr style="border-bottom:1px solid #eee;background:#fafafa;"><td style="padding:10px 14px;width:240px;color:#777;">Languages</td><td style="padding:10px 14px;">English, Arabic</td></tr>
+    <tr style="border-bottom:1px solid #eee;"><td style="padding:10px 14px;width:240px;color:#777;">License</td><td style="padding:10px 14px;">LGPL-3</td></tr>
   </tbody>
 </table>
 
