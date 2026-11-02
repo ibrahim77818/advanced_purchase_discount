@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_apd_discount_tier" name="Volume Discount Tiers"
+              parent="purchase.menu_purchase_config" action="action_apd_discount_tier"
+              sequence="40" groups="purchase.group_purchase_manager"/>
+    <menuitem id="menu_apd_discount_application" name="Discount Log"
+              parent="purchase.purchase_report_main" action="action_apd_discount_application"
+              sequence="50" groups="purchase.group_purchase_user"/>
+</odoo>

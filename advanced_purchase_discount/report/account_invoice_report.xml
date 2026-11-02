@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Discounts are stored with a higher precision: print them without trailing zeros. -->
+    <template id="report_invoice_document_apd" inherit_id="account.report_invoice_document">
+        <xpath expr="//span[@t-field='line.discount']" position="replace">
+            <span class="text-nowrap" t-esc="('%.6f' % line.discount).rstrip('0').rstrip('.')"/>
+        </xpath>
+    </template>
+</odoo>

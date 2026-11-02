@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="apd_discount_tier_view_tree" model="ir.ui.view">
+        <field name="name">apd.discount.tier.tree</field>
+        <field name="model">apd.discount.tier</field>
+        <field name="arch" type="xml">
+            <tree string="Volume Discount Tiers">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="scope"/>
+                <field name="partner_ids" widget="many2many_tags" optional="show"/>
+                <field name="product_ids" widget="many2many_tags" optional="hide"/>
+                <field name="categ_ids" widget="many2many_tags" optional="show"/>
+                <field name="threshold_type"/>
+                <field name="min_threshold"/>
+                <field name="discount_percent"/>
+                <field name="apply_as" attrs="{'invisible': [('scope', '!=', 'order')]}" optional="show"/>
+                <field name="date_start" optional="hide"/>
+                <field name="date_end" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="apd_discount_tier_view_form" model="ir.ui.view">
+        <field name="name">apd.discount.tier.form</field>
+        <field name="model">apd.discount.tier</field>
+        <field name="arch" type="xml">
+            <form string="Volume Discount Tier">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. 5% above 100 units"/></h1>
+                    </div>
+                    <group>
+                        <group string="Rule">
+                            <field name="active" invisible="1"/>
+                            <field name="scope" widget="radio"/>
+                            <field name="threshold_type" widget="radio"/>
+                            <field name="min_threshold"/>
+                            <field name="discount_percent"/>
+                            <field name="apply_as" widget="radio" attrs="{'invisible': [('scope', '!=', 'order')]}"/>
+                        </group>
+                        <group string="Applicability">
+                            <field name="partner_ids" widget="many2many_tags" placeholder="All vendors"/>
+                            <field name="product_ids" widget="many2many_tags" placeholder="All products"
+                                   attrs="{'invisible': [('scope', '!=', 'line')]}"/>
+                            <field name="categ_ids" widget="many2many_tags" placeholder="All categories"
+                                   attrs="{'invisible': [('scope', '!=', 'line')]}"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <div class="text-muted">
+                        Amount thresholds are compared with the untaxed amount converted into the company currency.
+                        Quantity thresholds use the product unit of measure. When several tiers match, the highest
+                        discount wins; line tiers are compared with vendor agreement discounts and the best one is kept,
+                        then the whole-document tier is applied on top.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="apd_discount_tier_view_search" model="ir.ui.view">
+        <field name="name">apd.discount.tier.search</field>
+        <field name="model">apd.discount.tier</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_ids"/>
+                <field name="product_ids"/>
+                <field name="categ_ids"/>
+                <filter name="filter_line" string="Per Line" domain="[('scope', '=', 'line')]"/>
+                <filter name="filter_order" string="Whole Document" domain="[('scope', '=', 'order')]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_scope" string="Scope" context="{'group_by': 'scope'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apd_discount_tier" model="ir.actions.act_window">
+        <field name="name">Volume Discount Tiers</field>
+        <field name="res_model">apd.discount.tier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a volume discount tier</p>
+            <p>Tiers are evaluated by the "Smart Tiered Volume" mode of the purchase discount wizard.</p>
+        </field>
+    </record>
+</odoo>

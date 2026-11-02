@@ -1,0 +1,1377 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* advanced_purchase_discount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-01 13:56+0000\n"
+"PO-Revision-Date: 2026-11-01 13:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
+#, python-format
+msgid "%s previous discount line(s) will be removed."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid ""
+"<span attrs=\"{'invisible': [('mode', '!=', 'prorate')]}\">\n"
+"                        Mode A spreads the discount on the selected lines through their discount percentage. Amounts are\n"
+"                        allocated exactly to the cent and checked against the tax engine.\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('mode', '!=', 'manual')]}\">\n"
+"                        Mode B lets you weight the lines, or enter a percentage or an amount for each line.\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('mode', '!=', 'discount_line')]}\">\n"
+"                        Mode C adds one negative line per tax group, using the discount product, prorated on the\n"
+"                        untaxed amount of each tax group.\n"
+"                    </span>\n"
+"                    <span attrs=\"{'invisible': [('mode', '!=', 'tiered')]}\">\n"
+"                        Mode D evaluates vendor agreement discounts and the configured volume tiers automatically.\n"
+"                    </span>"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.res_config_settings_view_form_apd
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
+msgid "<strong>Disc.%</strong>"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
+msgid "<strong>Gross Amount</strong>"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__mode__prorate
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__mode__prorate
+msgid "A - Proportional Proration"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "A percentage discount cannot exceed 100%."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__action
+msgid "Action"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__active
+msgid "Active"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_discount_enabled
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_discount_enabled
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_discount_enabled
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_discount_enabled
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__apd_discount_enabled
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__apd_discount_enabled
+msgid "Advanced Purchase Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid ""
+"Advanced Purchase Discounts are not enabled for company \"%s\" (Purchase > "
+"Configuration > Settings)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_product_supplierinfo__apd_discount
+msgid "Agreement Discount (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "All categories"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid ""
+"All line discounts will be reset and the discount lines removed. Continue?"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "All products"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "All vendors"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__manual_basis
+msgid "Allocation"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid ""
+"Amount thresholds are compared with the untaxed amount converted into the company currency.\n"
+"                        Quantity thresholds use the product unit of measure. When several tiers match, the highest\n"
+"                        discount wins; line tiers are compared with vendor agreement discounts and the best one is kept,\n"
+"                        then the whole-document tier is applied on top."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_application_count
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_application_count
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_application_count
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_application_count
+msgid "Apd Application Count"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_has_discount_mismatch
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_has_discount_mismatch
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_has_discount_mismatch
+msgid "Apd Has Discount Mismatch"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "Applicability"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__application_id
+msgid "Application"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__user_id
+msgid "Applied By"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__date
+msgid "Applied On"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__include
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Apply"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__apply_as
+msgid "Apply As"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+#, python-format
+msgid "Apply Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_wizard
+msgid "Apply Purchase Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_wizard_line
+msgid "Apply Purchase Discount - Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__apd_auto_vendor_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__apd_auto_vendor_discount
+msgid "Apply Vendor Agreement Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
+msgid "Archived"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__mode__manual
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__mode__manual
+msgid "B - Manual Weighted Allocation"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__mode__discount_line
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__mode__discount_line
+msgid "C - Dedicated Discount Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__categ_ids
+msgid "Child categories are included. Leave empty for all."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__company_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__company_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__company_id
+msgid "Company"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid ""
+"Company \"%s\": a discount service product is required when Advanced "
+"Purchase Discounts are enabled."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__currency_id
+msgid "Company Currency"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid "Configure a discount product in the Purchase settings first."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_product_supplierinfo__apd_discount
+msgid ""
+"Contractual discount granted by this vendor for this price line. Used by the"
+" tiered volume discount (Mode D) and, when enabled, copied on purchase order"
+" lines."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.actions.act_window,help:advanced_purchase_discount.action_apd_discount_tier
+msgid "Create a volume discount tier"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__create_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__create_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__create_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__create_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__create_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__create_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__create_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__create_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__currency_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__currency_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__currency_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__current_discount
+msgid "Current Disc. (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__mode__tiered
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__mode__tiered
+msgid "D - Smart Tiered Volume"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+msgid "Date"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__apply_as__discount_line
+msgid "Dedicated Discount Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order_line__apd_is_discount_line
+msgid "Dedicated discount line created by the discount wizard."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__name
+msgid "Description"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__line_ids
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__preview_message
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_form
+msgid "Details"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_application__residual
+msgid ""
+"Difference between the requested and the achieved discount. Zero means the "
+"allocation is exact."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__discount
+msgid "Disc. (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__discount_after
+msgid "Disc. After (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__discount_before
+msgid "Disc. Before (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_form_apd
+msgid "Disc.%"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_form_apd
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.view_move_form_apd
+msgid "Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__discount_percent
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_percent
+msgid "Discount (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_amount
+msgid "Discount Amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__amount_discount
+msgid "Discount Applied"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application_line__action__discount_line
+msgid "Discount Line Added"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application_line__action__removed
+msgid "Discount Line Removed"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.actions.act_window,name:advanced_purchase_discount.action_apd_discount_application
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_application_ids
+#: model:ir.ui.menu,name:advanced_purchase_discount.menu_apd_discount_application
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_form
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_tree
+msgid "Discount Log"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_product_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_company__apd_discount_product_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_res_config_settings__apd_discount_product_id
+msgid "Discount Product"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application_line__action__reset
+msgid "Discount Reset"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__discount_type
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__discount_type
+msgid "Discount Type"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__amount_discount
+msgid "Discount Variation"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#, python-format
+msgid "Discount applied (%s)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__apd_discount_mismatch
+msgid "Discount differs from PO"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#, python-format
+msgid "Discount lines that are already billed cannot be removed: %s"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_stock_move__apd_po_discount
+msgid ""
+"Discount of the originating purchase order line. The move unit price is "
+"already net of this discount, so the stock valuation reflects the discounted"
+" cost."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_form_apd
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.view_move_form_apd
+msgid "Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#, python-format
+msgid ""
+"Discounts can only be applied on RFQs and confirmed (unlocked) purchase "
+"orders."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#, python-format
+msgid "Discounts can only be applied on draft vendor bills."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__display_name
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__prorate_basis
+msgid "Distribution Basis"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__mode
+msgid "Distribution Mode"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "Document tier \"%(tier)s\": %(pct)s%%"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_discount_enabled
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_discount_enabled
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_discount_enabled
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_discount_enabled
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_company__apd_discount_enabled
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_config_settings__apd_discount_enabled
+msgid ""
+"Enable the discount wizard on purchase orders and vendor bills of this "
+"company."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__discount_value
+msgid "Entered Value"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__prorate_basis__equal
+msgid "Evenly on each line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.actions.act_window,help:advanced_purchase_discount.action_apd_discount_application
+msgid ""
+"Every discount applied with the wizard on purchase orders and vendor bills "
+"is logged here."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__discount_type__fixed
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__discount_type__fixed
+msgid "Fixed Amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_gross
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_amount_gross
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_amount_gross
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_amount_gross
+msgid "Gross Amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__apd_gross_subtotal
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__gross_subtotal
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__apd_gross_subtotal
+msgid "Gross Subtotal"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_wizard__prorate_basis
+msgid "How a fixed amount is spread on the selected lines."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__id
+msgid "ID"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__apd_is_discount_line
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order_line__apd_is_discount_line
+msgid "Is Discount Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application____last_update
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line____last_update
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier____last_update
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard____last_update
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__write_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__write_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__write_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__write_uid
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__write_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__write_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__write_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__write_date
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__product_ids
+msgid "Leave empty to apply to every product."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__partner_ids
+msgid "Leave empty to apply to every vendor."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__description
+msgid "Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__line_percent
+msgid "Line Disc. (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application_line__action__line_discount
+msgid "Line Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__line_amount
+msgid "Line Discount Amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "Line amounts cannot be negative."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_amount_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_amount_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_amount_discount
+msgid "Line discounts plus dedicated discount lines (untaxed)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "Line percentages must be between 0 and 100."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__line_ids
+msgid "Lines"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__min_threshold
+msgid "Minimum Threshold"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__mode
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+#, python-format
+msgid "Mode"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__move_line_id
+msgid "Move Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__name
+msgid "Name"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__new_discount
+msgid "New Disc. (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__new_subtotal
+msgid "New Subtotal"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
+#, python-format
+msgid "New discount line: %(name)s = %(amount)s"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "No Tax"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.actions.act_window,help:advanced_purchase_discount.action_apd_discount_application
+msgid "No discount applied yet"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid ""
+"No expense account can be found for the discount product \"%(product)s\" in "
+"company \"%(company)s\". Set an expense account on the product or its "
+"category."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "No vendor agreement or volume tier matched this document."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
+#, python-format
+msgid "Nothing to apply: the discount does not change the document."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__apply_as
+msgid "Only for whole-document tiers."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_form
+msgid "Open Document"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move_line__apd_po_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_stock_move__apd_po_discount
+msgid "PO Disc. (%)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__scope__line
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
+msgid "Per Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__scope
+msgid ""
+"Per Line: the threshold is evaluated on each line and the discount is applied to that line.\n"
+"Whole Document: the threshold is evaluated on the document totals and the discount is applied globally."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__discount_type__percent
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__discount_type__percent
+msgid "Percentage"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.res_config_settings_view_form_apd
+msgid "Percentage and fixed discounts on purchase orders and vendor bills"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Preview"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__product_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__product_id
+msgid "Product"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__categ_ids
+msgid "Product Categories"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__product_ids
+msgid "Products"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__prorate_basis__amount
+msgid "Proportional to line amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__prorate_basis__quantity
+msgid "Proportional to quantity"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__apply_as__prorate
+msgid "Prorate on Lines"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:product.template,name:advanced_purchase_discount.product_purchase_discount_product_template
+msgid "Purchase Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_application_line
+msgid "Purchase Discount Audit Detail"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_application
+msgid "Purchase Discount Audit Log"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_engine
+msgid "Purchase Discount Engine"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__purchase_line_id
+msgid "Purchase Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_purchase_order
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__purchase_order_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__purchase_order_id
+msgid "Purchase Order"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+msgid "Purchase Orders"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_apd_discount_tier
+msgid "Purchase Volume Discount Tier"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#, python-format
+msgid "Purchase discounts are only available on vendor bills and refunds."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__quantity
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__threshold_type__qty
+msgid "Quantity"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_tier__min_threshold
+msgid ""
+"Quantity in the product unit of measure, or untaxed amount in the company "
+"currency."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__note
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__note
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_form
+msgid "Reason"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Reason / reference of the discount (kept in the discount log)"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__name
+msgid "Reference"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Remove All Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__replace_existing
+msgid "Replace Existing Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__replace_existing
+msgid "Replaced Previous Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_application__mode__reset
+msgid "Reset Discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_wizard__replace_existing
+msgid ""
+"Reset every line discount and remove previous discount lines before "
+"applying. When unchecked, the new discount is stacked on top of the existing"
+" ones."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__residual
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__preview_residual
+msgid "Rounding Residual"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "Rule"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__scope
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
+msgid "Scope"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Select a discount service product to enable Advanced Purchase Discounts."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "Select at least one eligible line."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__sequence
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_wizard__discount_product_id
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_company__apd_discount_product_id
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_config_settings__apd_discount_product_id
+msgid ""
+"Service product used for dedicated discount lines (Mode C) and for discount "
+"tracking. Its expense account receives the discount posting."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.view_move_form_apd
+msgid "Some line discounts differ from their purchase order lines."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__manual_basis__line_amount
+msgid "Specific amount per line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__manual_basis__line_percent
+msgid "Specific percentage per line"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__subtotal_after
+msgid "Subtotal After"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application_line__subtotal_before
+msgid "Subtotal Before"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model,name:advanced_purchase_discount.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/product_supplierinfo.py:0
+#, python-format
+msgid "The agreement discount must be between 0 and 100."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid ""
+"The discount (%(discount)s) is higher than the eligible amount "
+"(%(eligible)s)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "The discount amount cannot be negative."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid ""
+"The discount cannot be distributed: all eligible lines have a zero weight."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.constraint,message:advanced_purchase_discount.constraint_purchase_order_line_apd_discount_range
+msgid "The discount of a purchase order line must be between 0 and 100."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "The discount of line \"%s\" is higher than its amount."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid ""
+"The discount product \"%(product)s\" belongs to another company "
+"(%(company)s)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid "The discount product \"%s\" must be a service product."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid "The discount product \"%s\" must be purchasable."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "The discount value cannot be negative."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
+#, python-format
+msgid ""
+"The discount wizard must be opened from a purchase order or a vendor bill."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid ""
+"The expense account \"%(account)s\" of the discount product does not belong "
+"to company \"%(company)s\"."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid "The expense account \"%s\" of the discount product is deprecated."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
+#, python-format
+msgid "The minimum threshold cannot be negative."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
+#, python-format
+msgid "The tier discount must be greater than 0 and at most 100."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_tier.py:0
+#, python-format
+msgid "The tier start date must be before its end date."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/res_company.py:0
+#, python-format
+msgid "The vendor taxes of the discount product must be purchase taxes (%s)."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/wizard/apd_discount_wizard.py:0
+#, python-format
+msgid "There is no discount to reset on this document."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__threshold_type
+msgid "Threshold Based On"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.actions.act_window,help:advanced_purchase_discount.action_apd_discount_tier
+msgid ""
+"Tiers are evaluated by the \"Smart Tiered Volume\" mode of the purchase "
+"discount wizard."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_form
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_tree
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Total"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_move__apd_amount_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_account_payment__apd_amount_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_purchase_order__apd_amount_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.purchase_order_tree_apd
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.report_purchaseorder_document_apd
+msgid "Total Discount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_wizard__manual_basis__weight
+msgid "Total discount split by weights"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__price_unit
+msgid "Unit Price"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "Unknown distribution mode."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_wizard__discount_amount
+msgid "Untaxed (tax excluded) amount to deduct."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__amount_after
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__amount_after
+msgid "Untaxed After"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__threshold_type__amount
+msgid "Untaxed Amount"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__amount_before
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__amount_before
+msgid "Untaxed Before"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#, python-format
+msgid "Untaxed after"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order_line__apd_gross_subtotal
+msgid "Untaxed amount of the line without discount."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_bank_statement_line__apd_amount_gross
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_move__apd_amount_gross
+#: model:ir.model.fields,help:advanced_purchase_discount.field_account_payment__apd_amount_gross
+#: model:ir.model.fields,help:advanced_purchase_discount.field_purchase_order__apd_amount_gross
+msgid "Untaxed amount of the lines before any discount."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/account_move.py:0
+#: code:addons/advanced_purchase_discount/models/purchase_order.py:0
+#, python-format
+msgid "Untaxed before"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_wizard_view_form
+msgid "Use"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.view_move_form_apd
+msgid "Use the purchase order discounts"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__date_start
+msgid "Valid From"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__date_end
+msgid "Valid Until"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_apd_discount_application__amount_discount
+msgid "Variation of the untaxed amount caused by this operation."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__partner_id
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+msgid "Vendor"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_application__move_id
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__move_id
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+msgid "Vendor Bills"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_tier__partner_ids
+msgid "Vendors"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "Volume Discount Tier"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.actions.act_window,name:advanced_purchase_discount.action_apd_discount_tier
+#: model:ir.ui.menu,name:advanced_purchase_discount.menu_apd_discount_tier
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_tree
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.res_config_settings_view_form_apd
+msgid "Volume Discount Tiers"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard__preview_error
+msgid "Warning"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__weight
+msgid "Weight"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_company__apd_auto_vendor_discount
+#: model:ir.model.fields,help:advanced_purchase_discount.field_res_config_settings__apd_auto_vendor_discount
+msgid ""
+"When a vendor pricelist line carries an agreement discount, copy it on the "
+"purchase order line automatically when the vendor price is selected."
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields.selection,name:advanced_purchase_discount.selection__apd_discount_tier__scope__order
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_search
+msgid "Whole Document"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_application_view_search
+msgid "With Rounding Residual"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model:ir.model.fields,field_description:advanced_purchase_discount.field_apd_discount_wizard_line__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#: model_terms:ir.ui.view,arch_db:advanced_purchase_discount.apd_discount_tier_view_form
+msgid "e.g. 5% above 100 units"
+msgstr ""
+
+#. module: advanced_purchase_discount
+#. odoo-python
+#: code:addons/advanced_purchase_discount/models/apd_discount_engine.py:0
+#, python-format
+msgid "vendor agreement"
+msgstr ""

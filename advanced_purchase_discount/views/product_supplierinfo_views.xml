@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_supplierinfo_tree_view_apd" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.apd</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="price" position="after">
+                <field name="apd_discount" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="product_supplierinfo_form_view_apd" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.apd</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price']/.." position="after">
+                <field name="apd_discount"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

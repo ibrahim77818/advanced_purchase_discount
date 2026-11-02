@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_apd_discount_tier_user,apd.discount.tier purchase user,model_apd_discount_tier,purchase.group_purchase_user,1,0,0,0
+access_apd_discount_tier_invoice,apd.discount.tier invoicing,model_apd_discount_tier,account.group_account_invoice,1,0,0,0
+access_apd_discount_tier_manager,apd.discount.tier purchase manager,model_apd_discount_tier,purchase.group_purchase_manager,1,1,1,1
+access_apd_discount_application_user,apd.discount.application purchase user,model_apd_discount_application,purchase.group_purchase_user,1,0,0,0
+access_apd_discount_application_invoice,apd.discount.application invoicing,model_apd_discount_application,account.group_account_invoice,1,0,0,0
+access_apd_discount_application_manager,apd.discount.application purchase manager,model_apd_discount_application,purchase.group_purchase_manager,1,0,0,1
+access_apd_discount_application_line_user,apd.discount.application.line purchase user,model_apd_discount_application_line,purchase.group_purchase_user,1,0,0,0
+access_apd_discount_application_line_invoice,apd.discount.application.line invoicing,model_apd_discount_application_line,account.group_account_invoice,1,0,0,0
+access_apd_discount_wizard_user,apd.discount.wizard purchase user,model_apd_discount_wizard,purchase.group_purchase_user,1,1,1,1
+access_apd_discount_wizard_invoice,apd.discount.wizard invoicing,model_apd_discount_wizard,account.group_account_invoice,1,1,1,1
+access_apd_discount_wizard_line_user,apd.discount.wizard.line purchase user,model_apd_discount_wizard_line,purchase.group_purchase_user,1,1,1,1
+access_apd_discount_wizard_line_invoice,apd.discount.wizard.line invoicing,model_apd_discount_wizard_line,account.group_account_invoice,1,1,1,1

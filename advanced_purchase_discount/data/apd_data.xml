@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="decimal_purchase_discount" model="decimal.precision">
+            <field name="name">Purchase Discount</field>
+            <field name="digits">6</field>
+        </record>
+
+        <record id="seq_apd_discount_application" model="ir.sequence">
+            <field name="name">Purchase Discount Log</field>
+            <field name="code">apd.discount.application</field>
+            <field name="prefix">PDISC/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="product_purchase_discount" model="product.product">
+            <field name="name">Purchase Discount</field>
+            <field name="default_code">PURCH-DISC</field>
+            <field name="detailed_type">service</field>
+            <field name="purchase_ok" eval="True"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_method">purchase</field>
+            <field name="list_price">0.0</field>
+            <field name="standard_price">0.0</field>
+            <field name="supplier_taxes_id" eval="[(5, 0, 0)]"/>
+            <field name="taxes_id" eval="[(5, 0, 0)]"/>
+        </record>
+    </data>
+</odoo>

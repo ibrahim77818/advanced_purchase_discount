@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_apd" model="ir.ui.view">
+        <field name="name">stock.picking.form.apd</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="apd_po_discount" optional="hide"
+                       attrs="{'column_invisible': [('parent.picking_type_code', '!=', 'incoming')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

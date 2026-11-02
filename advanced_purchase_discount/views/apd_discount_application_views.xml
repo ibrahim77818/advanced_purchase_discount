@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="apd_discount_application_view_tree" model="ir.ui.view">
+        <field name="name">apd.discount.application.tree</field>
+        <field name="model">apd.discount.application</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Log" create="false" edit="false">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="purchase_order_id"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="mode"/>
+                <field name="discount_type" optional="show"/>
+                <field name="discount_value" optional="show"/>
+                <field name="amount_before" optional="hide"/>
+                <field name="amount_after" optional="show"/>
+                <field name="amount_discount" sum="Total"/>
+                <field name="residual" optional="hide"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="apd_discount_application_view_form" model="ir.ui.view">
+        <field name="name">apd.discount.application.form</field>
+        <field name="model">apd.discount.application</field>
+        <field name="arch" type="xml">
+            <form string="Discount Log" create="false" edit="false">
+                <header>
+                    <button name="action_open_document" type="object" string="Open Document" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="purchase_order_id"/>
+                            <field name="move_id"/>
+                            <field name="partner_id"/>
+                            <field name="mode"/>
+                            <field name="discount_type"/>
+                            <field name="discount_value"/>
+                            <field name="replace_existing"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                            <field name="amount_before"/>
+                            <field name="amount_after"/>
+                            <field name="amount_discount"/>
+                            <field name="residual"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details" name="details">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="action"/>
+                                    <field name="description"/>
+                                    <field name="product_id" optional="hide"/>
+                                    <field name="discount_before"/>
+                                    <field name="discount_after"/>
+                                    <field name="subtotal_before" sum="Total"/>
+                                    <field name="subtotal_after" sum="Total"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Reason" name="note">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="apd_discount_application_view_search" model="ir.ui.view">
+        <field name="name">apd.discount.application.search</field>
+        <field name="model">apd.discount.application</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="purchase_order_id"/>
+                <field name="move_id"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter name="filter_po" string="Purchase Orders" domain="[('purchase_order_id', '!=', False)]"/>
+                <filter name="filter_bill" string="Vendor Bills" domain="[('move_id', '!=', False)]"/>
+                <separator/>
+                <filter name="filter_residual" string="With Rounding Residual" domain="[('residual', '!=', 0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_mode" string="Mode" context="{'group_by': 'mode'}"/>
+                    <filter name="group_partner" string="Vendor" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_apd_discount_application" model="ir.actions.act_window">
+        <field name="name">Discount Log</field>
+        <field name="res_model">apd.discount.application</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No discount applied yet</p>
+            <p>Every discount applied with the wizard on purchase orders and vendor bills is logged here.</p>
+        </field>
+    </record>
+</odoo>
