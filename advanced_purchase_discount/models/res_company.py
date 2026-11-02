@@ -14,16 +14,10 @@ class ResCompany(models.Model):
     apd_discount_product_id = fields.Many2one(
         'product.product',
         string='Discount Product',
-        domain="[('detailed_type', '=', 'service'), ('purchase_ok', '=', True), "
-               "'|', ('company_id', '=', False), ('company_id', '=', id)]",
+        domain="[('type', '=', 'service'), ('purchase_ok', '=', True), "
+               "'|', ('company_id', '=', False), ('company_id', 'parent_of', id)]",
         help='Service product used for dedicated discount lines (Mode C) and for discount tracking. '
              'Its expense account receives the discount posting.',
-    )
-    apd_auto_vendor_discount = fields.Boolean(
-        string='Apply Vendor Agreement Discounts',
-        default=False,
-        help='When a vendor pricelist line carries an agreement discount, copy it on the purchase '
-             'order line automatically when the vendor price is selected.',
     )
 
     @api.constrains('apd_discount_enabled', 'apd_discount_product_id')
@@ -41,11 +35,11 @@ class ResCompany(models.Model):
         """Account and tax validation of the discount product for this company."""
         self.ensure_one()
         company = self
-        if product.detailed_type != 'service':
+        if product.type != 'service':
             raise ValidationError(_('The discount product "%s" must be a service product.', product.display_name))
         if not product.purchase_ok:
             raise ValidationError(_('The discount product "%s" must be purchasable.', product.display_name))
-        if product.company_id and product.company_id != company:
+        if product.company_id and product.company_id not in company.parent_ids:
             raise ValidationError(_(
                 'The discount product "%(product)s" belongs to another company (%(company)s).',
                 product=product.display_name, company=product.company_id.name))
@@ -59,11 +53,11 @@ class ResCompany(models.Model):
         if expense.deprecated:
             raise ValidationError(_('The expense account "%s" of the discount product is deprecated.',
                                     expense.display_name))
-        if expense.company_id != company:
+        if not (expense.company_ids & company.parent_ids):
             raise ValidationError(_(
                 'The expense account "%(account)s" of the discount product does not belong to company '
                 '"%(company)s".', account=expense.display_name, company=company.name))
-        taxes = product.with_company(company).supplier_taxes_id.filtered(lambda t: t.company_id == company)
+        taxes = product.with_company(company).supplier_taxes_id._filter_taxes_by_company(company)
         wrong = taxes.filtered(lambda t: t.type_tax_use not in ('purchase', 'none'))
         if wrong:
             raise ValidationError(_(

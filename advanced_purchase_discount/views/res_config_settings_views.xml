@@ -5,37 +5,23 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='invoicing_settings_container']" position="inside">
-                <div class="col-12 col-lg-6 o_setting_box" id="apd_discount_settings">
-                    <div class="o_setting_left_pane">
-                        <field name="apd_discount_enabled"/>
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="apd_discount_enabled"/>
-                        <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." groups="base.group_multi_company"/>
-                        <div class="text-muted">
-                            Percentage and fixed discounts on purchase orders and vendor bills
+            <xpath expr="//block[@name='invoicing_settings_container']" position="inside">
+                <setting id="apd_discount_settings" company_dependent="1"
+                         help="Percentage and fixed discounts on purchase orders and vendor bills">
+                    <field name="apd_discount_enabled"/>
+                    <div class="content-group" invisible="not apd_discount_enabled">
+                        <div class="mt16">
+                            <label for="apd_discount_product_id" class="o_light_label"/>
+                            <field name="apd_discount_product_id" class="w-100"
+                                   required="apd_discount_enabled"
+                                   context="{'default_type': 'service', 'default_purchase_ok': True, 'default_sale_ok': False}"/>
                         </div>
-                        <div class="content-group" attrs="{'invisible': [('apd_discount_enabled', '=', False)]}">
-                            <div class="mt16">
-                                <label for="apd_discount_product_id" class="o_light_label"/>
-                                <field name="apd_discount_product_id" class="w-100"
-                                       attrs="{'required': [('apd_discount_enabled', '=', True)]}"
-                                       context="{'default_detailed_type': 'service', 'default_purchase_ok': True, 'default_sale_ok': False}"/>
-                            </div>
-                            <div class="row mt8">
-                                <div class="col-12">
-                                    <field name="apd_auto_vendor_discount" class="oe_inline"/>
-                                    <label for="apd_auto_vendor_discount" class="o_light_label"/>
-                                </div>
-                            </div>
-                            <div class="mt8">
-                                <button name="%(advanced_purchase_discount.action_apd_discount_tier)d" type="action"
-                                        string="Volume Discount Tiers" icon="fa-arrow-right" class="btn-link"/>
-                            </div>
+                        <div class="mt8">
+                            <button name="%(advanced_purchase_discount.action_apd_discount_tier)d" type="action"
+                                    string="Volume Discount Tiers" icon="oi-arrow-right" class="btn-link"/>
                         </div>
                     </div>
-                </div>
+                </setting>
             </xpath>
         </field>
     </record>

@@ -9,9 +9,10 @@ Exactness strategy
 * Amounts are allocated on integer currency units with the largest-remainder
   method, with per-line caps (a line can never be discounted below zero).
 * Each line target (net untaxed amount) is converted into a discount percentage
-  which is then *verified against Odoo's own tax engine* (``_compute_taxes`` for
-  purchase lines, the ``_compute_totals`` formula for bill lines) and corrected by
-  Newton steps and a local search on the precision grid.
+  solved against Odoo 18's own tax engine (``_add_tax_details_in_base_line``, the
+  same call as the purchase line / journal item ``_compute_amount``/``_compute_totals``)
+  so that the *raw* line amount matches the target: exact with both the
+  "round per line" and the "round globally" tax rounding methods.
 * Any remaining difference is carried to the next line (largest lines first, so
   the finest-grained lines absorb it). A non-zero final residual is reported.
 """
@@ -92,83 +93,65 @@ class ApdDiscountEngine(models.AbstractModel):
 
     @api.model
     def _solve_discount(self, line, gross, target):
-        """Return the discount % that makes the line untaxed amount equal ``target``."""
+        """Return the discount % that makes the line untaxed amount equal ``target``.
+
+        Odoo 18 rounds documents either per line or per tax group ("round globally"),
+        from the *raw* line amounts. The discount is therefore solved so that the raw
+        amount itself is as close as possible to the (cent) target: the rounded line
+        amount and any per-tax-group sum then land exactly on the targets.
+        """
         currency = line._apd_currency()
         digits = self._digits()
         if float_compare(target, gross, precision_rounding=currency.rounding) >= 0:
             return 0.0
         if float_compare(target, 0.0, precision_rounding=currency.rounding) <= 0:
             return 100.0
-        d = self._round_pct((1.0 - target / gross) * 100.0)
         cache = {}
 
-        def achieved(pct):
+        def raw(pct):
             if pct not in cache:
-                cache[pct] = line._apd_untaxed(pct)
+                cache[pct] = line._apd_untaxed_raw(pct)
             return cache[pct]
 
+        gross_raw = raw(0.0) or gross
+        d = self._round_pct((1.0 - target / gross_raw) * 100.0)
         for _i in range(8):
-            diff = achieved(d) - target
-            if currency.is_zero(diff):
-                return d
-            new_d = self._round_pct(d + diff / gross * 100.0)
+            new_d = self._round_pct(d + (raw(d) - target) / gross_raw * 100.0)
             if new_d == d:
                 break
             d = new_d
         step = 10 ** -digits
-        best = (abs(achieved(d) - target), d)
-        for k in range(1, 40):
-            for cand in (d + k * step, d - k * step):
-                cand = self._round_pct(cand)
-                diff = abs(achieved(cand) - target)
-                if currency.is_zero(diff):
-                    return cand
-                if diff < best[0]:
-                    best = (diff, cand)
-        return best[1]
+        candidates = [self._round_pct(d + k * step) for k in range(-3, 4)]
+        return min(candidates, key=lambda c: (abs(raw(c) - target), abs(c - d)))
 
     @api.model
     def _solve_discount_line_price(self, doc, taxes, amount):
         """Price unit (qty 1) of a discount line whose untaxed amount is ``-amount``."""
         currency = doc._apd_currency()
-        product = doc._apd_company().apd_discount_product_id
-        partner = doc._apd_partner()
-        is_refund = doc._apd_is_refund()
         digits = self.env['decimal.precision'].precision_get('Product Price')
         target = -amount
+        cache = {}
 
-        def untaxed(price):
-            if not taxes:
-                return currency.round(price)
-            return taxes.compute_all(price, currency=currency, quantity=1.0, product=product,
-                                     partner=partner, is_refund=is_refund)['total_excluded']
+        def raw(price):
+            if price not in cache:
+                cache[price] = doc._apd_raw_untaxed_for(taxes, price)
+            return cache[price]
 
         price = target
-        if taxes.filtered('price_include'):
-            ref = untaxed(target)
-            if ref:
-                price = target * target / ref
+        ratio = (raw(target) / target) if target else 1.0
+        if ratio:
+            price = target / ratio
         price = float_round(price, precision_digits=digits)
         for _i in range(8):
-            diff = untaxed(price) - target
-            if currency.is_zero(diff):
-                return price, 0.0
-            ratio = (untaxed(price) / price) if price else 1.0
-            new_price = float_round(price - diff / (ratio or 1.0), precision_digits=digits)
+            ratio = (raw(price) / price) if price else 1.0
+            new_price = float_round(price - (raw(price) - target) / (ratio or 1.0), precision_digits=digits)
             if new_price == price:
                 break
             price = new_price
         step = 10 ** -digits
-        best = (abs(untaxed(price) - target), price)
-        for k in range(1, 40):
-            for cand in (price + k * step, price - k * step):
-                cand = float_round(cand, precision_digits=digits)
-                diff = abs(untaxed(cand) - target)
-                if currency.is_zero(diff):
-                    return cand, 0.0
-                if diff < best[0]:
-                    best = (diff, cand)
-        return best[1], untaxed(best[1]) - target
+        candidates = [float_round(price + k * step, precision_digits=digits) for k in range(-3, 4)]
+        best = min(candidates, key=lambda c: (abs(currency.round(raw(c)) - target), abs(raw(c) - target)))
+        return best, currency.round(raw(best)) - target
 
     # ------------------------------------------------------------------
     # Plan
@@ -354,8 +337,8 @@ class ApdDiscountEngine(models.AbstractModel):
             best = 0.0
             source = False
             seller = line._apd_seller()
-            if seller and seller.apd_discount:
-                best, source = seller.apd_discount, _('vendor agreement')
+            if seller and seller.discount:
+                best, source = seller.discount, _('vendor agreement')
             for tier in line_tiers:
                 if not tier._apd_match_product(product):
                     continue

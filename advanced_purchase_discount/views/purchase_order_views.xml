@@ -9,36 +9,38 @@
                 <field name="apd_discount_enabled" invisible="1"/>
                 <button name="action_apd_open_discount_wizard" type="object" string="Discount"
                         icon="fa-percent" groups="purchase.group_purchase_user"
-                        attrs="{'invisible': ['|', ('apd_discount_enabled', '=', False), ('state', 'not in', ('draft', 'sent', 'to approve', 'purchase'))]}"/>
+                        invisible="not apd_discount_enabled or state not in ('draft', 'sent', 'to approve', 'purchase')"/>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
                 <button name="action_apd_view_applications" type="object" class="oe_stat_button" icon="fa-percent"
-                        attrs="{'invisible': [('apd_application_count', '=', 0)]}">
+                        invisible="apd_application_count == 0">
                     <field name="apd_application_count" widget="statinfo" string="Discounts"/>
                 </button>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+            <xpath expr="//field[@name='order_line']/list" position="attributes">
                 <attribute name="decoration-info">apd_is_discount_line</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
-                <attribute name="attrs">{'readonly': ['|', ('qty_invoiced', '!=', 0), ('apd_is_discount_line', '=', True)]}</attribute>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="attributes">
+                <attribute name="readonly">qty_invoiced != 0 or apd_is_discount_line</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
-                <attribute name="attrs">{'readonly': [('apd_is_discount_line', '=', True)]}</attribute>
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_qty']" position="attributes">
+                <attribute name="readonly">apd_is_discount_line</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
-                <field name="apd_is_discount_line" invisible="1"/>
-                <field name="discount" string="Disc.%" optional="show"
-                       attrs="{'readonly': ['|', ('qty_invoiced', '!=', 0), ('apd_is_discount_line', '=', True)]}"/>
+            <!-- Odoo 17 already has the discount column (hidden by default): show it and lock it on discount lines. -->
+            <xpath expr="//field[@name='order_line']/list/field[@name='discount']" position="attributes">
+                <attribute name="optional">show</attribute>
+                <attribute name="readonly">qty_invoiced != 0 or apd_is_discount_line</attribute>
+                <!-- Odoo 18 sets width="50px": too narrow for the 6-decimal precision. -->
+                <attribute name="width">90px</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/form//field[@name='price_unit']" position="after">
-                <field name="discount"/>
+            <xpath expr="//field[@name='order_line']/list/field[@name='discount']" position="before">
+                <field name="apd_is_discount_line" column_invisible="True"/>
             </xpath>
             <xpath expr="//field[@name='tax_totals']" position="before">
                 <field name="apd_amount_gross" widget="monetary" colspan="2"
-                       attrs="{'invisible': [('apd_amount_discount', '=', 0)]}"/>
+                       invisible="apd_amount_discount == 0"/>
                 <field name="apd_amount_discount" widget="monetary" colspan="2"
-                       attrs="{'invisible': [('apd_amount_discount', '=', 0)]}"/>
+                       invisible="apd_amount_discount == 0"/>
             </xpath>
         </field>
     </record>

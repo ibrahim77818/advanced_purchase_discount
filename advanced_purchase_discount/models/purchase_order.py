@@ -22,19 +22,20 @@ class PurchaseOrder(models.Model):
     apd_application_count = fields.Integer(compute='_compute_apd_application_count')
 
     @api.depends('order_line.apd_gross_subtotal', 'order_line.apd_is_discount_line',
-                 'order_line.price_subtotal', 'order_line.display_type')
+                 'order_line.display_type', 'amount_untaxed')
     def _compute_apd_amounts(self):
         for order in self:
             lines = order.order_line.filtered(lambda l: not l.display_type)
             gross = sum(lines.filtered(lambda l: not l.apd_is_discount_line).mapped('apd_gross_subtotal'))
-            net = sum(lines.mapped('price_subtotal'))
+            # Odoo 18: line subtotals are raw (unrounded); the order total holds the rounded amount.
+            net = order.amount_untaxed
             order.apd_amount_gross = gross
             order.apd_amount_discount = order.currency_id.round(gross - net) if order.currency_id else gross - net
 
     def _compute_apd_application_count(self):
         data = self.env['apd.discount.application']._read_group(
-            [('purchase_order_id', 'in', self.ids)], ['purchase_order_id'], ['purchase_order_id'])
-        counts = {d['purchase_order_id'][0]: d['purchase_order_id_count'] for d in data}
+            [('purchase_order_id', 'in', self.ids)], ['purchase_order_id'], ['__count'])
+        counts = {order.id: count for order, count in data}
         for order in self:
             order.apd_application_count = counts.get(order.id, 0)
 
@@ -60,6 +61,27 @@ class PurchaseOrder(models.Model):
         action['domain'] = [('purchase_order_id', '=', self.id)]
         action['context'] = {'create': False}
         return action
+
+    # ------------------------------------------------------------------
+    # Vendor pricelist creation on confirmation (Odoo 17)
+    # ------------------------------------------------------------------
+    def _prepare_supplier_info(self, partner, line, price, currency):
+        # Odoo 17 copies the line discount in the new vendor pricelist line. A discount set by
+        # the wizard is a one-off negotiation, not a vendor price agreement: do not persist it.
+        vals = super()._prepare_supplier_info(partner, line, price, currency)
+        if line.apd_discount_locked:
+            vals['discount'] = 0.0
+        return vals
+
+    def _add_supplier_to_product(self):
+        super()._add_supplier_to_product()
+        # Dedicated discount lines must not register the vendor on the discount product with a
+        # negative price.
+        for order in self.filtered(lambda o: o.order_line.filtered('apd_is_discount_line')):
+            product = order.order_line.filtered('apd_is_discount_line').product_id
+            partners = order.partner_id | order.partner_id.commercial_partner_id
+            product.sudo().seller_ids.filtered(
+                lambda s: s.partner_id in partners and s.price < 0).unlink()
 
     # ------------------------------------------------------------------
     # Engine adapter
@@ -97,8 +119,23 @@ class PurchaseOrder(models.Model):
         return self.order_line.filtered(lambda l: l.apd_is_discount_line and l.product_qty)
 
     def _apd_amount_untaxed(self):
-        return self.currency_id.round(sum(self.order_line.filtered(lambda l: not l.display_type)
-                                          .mapped('price_subtotal')))
+        return self.amount_untaxed
+
+    def _apd_raw_untaxed_for(self, taxes, price_unit):
+        """Raw untaxed amount of a hypothetical one-unit discount line (Odoo 18 tax engine)."""
+        AccountTax = self.env['account.tax']
+        base_line = AccountTax._prepare_base_line_for_taxes_computation(
+            {},
+            tax_ids=taxes,
+            price_unit=price_unit,
+            quantity=1.0,
+            currency_id=self.currency_id or self.company_id.currency_id,
+            partner_id=self.partner_id,
+            product_id=self.company_id.apd_discount_product_id,
+            rate=self.currency_rate,
+        )
+        AccountTax._add_tax_details_in_base_line(base_line, self.company_id)
+        return base_line['tax_details']['raw_total_excluded_currency']
 
     def _apd_check_editable(self):
         for order in self:
@@ -113,7 +150,7 @@ class PurchaseOrder(models.Model):
             lines_by_discount.setdefault(discount, []).append(line_id)
         Line = self.env['purchase.order.line']
         for discount, ids in lines_by_discount.items():
-            Line.browse(ids).write({'discount': discount})
+            Line.browse(ids).write({'discount': discount, 'apd_discount_locked': bool(discount)})
         if remove_lines:
             invoiced = remove_lines.filtered(lambda l: l.qty_invoiced)
             if invoiced:
@@ -162,9 +199,17 @@ class PurchaseOrder(models.Model):
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
-    discount = fields.Float(string='Disc. (%)', digits='Purchase Discount', default=0.0)
+    # Odoo 17 ships a native ``discount`` field (computed from the vendor
+    # pricelist, already used by the tax engine, the bill and the receipt
+    # valuation). Only its precision is raised so that fixed amounts can be
+    # distributed exactly to the cent.
+    discount = fields.Float(digits='Purchase Discount')
     apd_is_discount_line = fields.Boolean(string='Is Discount Line', readonly=True, copy=True,
                                           help='Dedicated discount line created by the discount wizard.')
+    apd_discount_locked = fields.Boolean(
+        string='Discount Set by Wizard', readonly=True, copy=False,
+        help='The discount was applied with the discount wizard: it is kept when the quantity or the '
+             'unit of measure changes, instead of being reset from the vendor pricelist.')
     apd_gross_subtotal = fields.Monetary(
         string='Gross Subtotal', compute='_compute_apd_gross_subtotal', store=True,
         help='Untaxed amount of the line without discount.')
@@ -174,38 +219,23 @@ class PurchaseOrderLine(models.Model):
          'The discount of a purchase order line must be between 0 and 100.'),
     ]
 
-    @api.depends('product_qty', 'price_unit', 'taxes_id', 'discount')
-    def _compute_amount(self):
-        return super()._compute_amount()
-
     @api.depends('product_qty', 'price_unit', 'taxes_id', 'display_type')
     def _compute_apd_gross_subtotal(self):
         for line in self:
             line.apd_gross_subtotal = 0.0 if line.display_type else line._apd_untaxed(0.0)
 
-    def _convert_to_tax_base_line_dict(self):
-        res = super()._convert_to_tax_base_line_dict()
-        discount = self.discount or 0.0
-        if self.env.context.get('apd_net_price_unit'):
-            # Valuation helpers read the price unit only: give them the net price.
-            res['price_unit'] = res['price_unit'] * (1.0 - discount / 100.0)
-            res['discount'] = 0.0
-        else:
-            res['discount'] = discount
-        return res
-
-    def _get_gross_price_unit(self):
-        return super(PurchaseOrderLine, self.with_context(apd_net_price_unit=True))._get_gross_price_unit()
-
-    def _get_stock_move_price_unit(self):
-        return super(PurchaseOrderLine, self.with_context(apd_net_price_unit=True))._get_stock_move_price_unit()
+    def _compute_price_unit_and_date_planned_and_name(self):
+        # Odoo 17 resets ``discount`` from the vendor pricelist whenever the quantity
+        # or the UoM changes. Keep the discounts applied with the wizard.
+        locked = {line: line.discount for line in self if line.apd_discount_locked}
+        super()._compute_price_unit_and_date_planned_and_name()
+        for line, discount in locked.items():
+            line.discount = discount
 
     def _prepare_account_move_line(self, move=False):
         res = super()._prepare_account_move_line(move=move)
-        if not self.display_type:
-            res['discount'] = self.discount
-            if self.apd_is_discount_line:
-                res['apd_is_discount_line'] = True
+        if not self.display_type and self.apd_is_discount_line:
+            res['apd_is_discount_line'] = True
         return res
 
     def _compute_qty_invoiced(self):
@@ -214,41 +244,24 @@ class PurchaseOrderLine(models.Model):
             if line.order_id.state in ('purchase', 'done'):
                 line.qty_to_invoice = line.product_qty - line.qty_invoiced
 
-    def _compute_price_unit_and_date_planned_and_name(self):
-        super()._compute_price_unit_and_date_planned_and_name()
-        for line in self:
-            if line.apd_is_discount_line or not line.product_id or line.invoice_lines or not line.company_id:
-                continue
-            if not line.company_id.apd_auto_vendor_discount:
-                continue
-            seller = line._apd_seller()
-            if seller:
-                line.discount = seller.apd_discount
-
-    def write(self, vals):
-        res = super().write(vals)
-        if 'discount' in vals:
-            for line in self.filtered(lambda l: not l.display_type and l.order_id.state == 'purchase'):
-                moves = line.move_ids.filtered(
-                    lambda m: m.state not in ('cancel', 'done') and m.product_id == line.product_id)
-                if moves:
-                    moves.write({'price_unit': line._get_stock_move_price_unit()})
-        return res
-
     # ------------------------------------------------------------------
     # Engine adapter
     # ------------------------------------------------------------------
     def _apd_currency(self):
         return self.order_id.currency_id or self.currency_id
 
-    def _apd_untaxed(self, discount):
-        """Untaxed amount of the line for a given discount, using the native tax engine."""
+    def _apd_untaxed_raw(self, discount):
+        """Raw (unrounded) untaxed amount of the line for a given discount (Odoo 18 tax engine)."""
         self.ensure_one()
-        base = self.with_context(apd_net_price_unit=False)._convert_to_tax_base_line_dict()
-        base['discount'] = discount
-        result = self.env['account.tax']._compute_taxes([base])
-        totals = list(result['totals'].values())
-        amount = totals[0]['amount_untaxed'] if totals else 0.0
+        base_line = self._prepare_base_line_for_taxes_computation()
+        base_line['discount'] = discount
+        self.env['account.tax']._add_tax_details_in_base_line(
+            base_line, self.company_id or self.order_id.company_id)
+        return base_line['tax_details']['raw_total_excluded_currency']
+
+    def _apd_untaxed(self, discount):
+        """Untaxed amount of the line for a given discount, rounded to the currency."""
+        amount = self._apd_untaxed_raw(discount)
         currency = self._apd_currency()
         return currency.round(amount) if currency else amount
 

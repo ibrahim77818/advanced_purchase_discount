@@ -12,8 +12,8 @@ from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_c
 class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref=None):
-        super().setUpClass(chart_template_ref=chart_template_ref)
+    def setUpClass(cls):
+        super().setUpClass()
         cls.company = cls.company_data['company']
         cls.currency = cls.company.currency_id
         cls.tax_15 = cls.company_data['default_tax_purchase']
@@ -22,7 +22,7 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
         })
         cls.tax_15_incl = cls.env['account.tax'].create({
             'name': 'Purchase 15% incl', 'amount': 15.0, 'type_tax_use': 'purchase',
-            'price_include': True, 'company_id': cls.company.id,
+            'price_include_override': 'tax_included', 'company_id': cls.company.id,
         })
         cls.discount_product = cls.env.ref('advanced_purchase_discount.product_purchase_discount')
         cls.discount_product.property_account_expense_id = cls.company_data['default_account_expense']
@@ -121,7 +121,31 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
             self.assertAlmostEqual(po.amount_untaxed, round(gross - 123.45, 2), places=2, msg=basis)
             self.assertFalse(po.apd_application_ids[0].residual, basis)
             # PO tax totals agree with the tax engine
-            self.assertAlmostEqual(po.amount_total, po.tax_totals['amount_total'], places=2)
+            self.assertAlmostEqual(po.amount_total, po.tax_totals['total_amount_currency'], places=2)
+
+    def test_15_exact_with_round_globally(self):
+        """Odoo 18 rounds per tax group with 'round globally': fixed amounts must stay exact."""
+        self.company.tax_calculation_rounding_method = 'round_globally'
+        (self.product_a | self.product_b).purchase_method = 'purchase'
+        po = self._po([
+            (self.product_a, 3, 33.33, self.tax_15_incl),
+            (self.product_b, 7, 17.89, self.tax_15_incl),
+            (self.product_c, 13, 21.53, self.tax_15_incl),
+            (self.product_c, 11, 0.37, self.tax_5),
+        ])
+        gross = po.amount_untaxed
+        for value in (123.45, 0.07, 99.99):
+            self._apply(po, mode='prorate', discount_type='fixed', discount_value=value)
+            self.assertAlmostEqual(po.amount_untaxed, round(gross - value, 2), places=2, msg=value)
+            self.assertAlmostEqual(po.apd_amount_discount, value, places=2)
+        po.button_confirm()
+        po.action_create_invoice()
+        bill = po.invoice_ids
+        self.assertAlmostEqual(bill.amount_untaxed, po.amount_untaxed, places=2)
+        self.assertAlmostEqual(bill.amount_total, po.amount_total, places=2)
+        bill_gross = bill.apd_amount_gross
+        self._apply(bill, mode='prorate', discount_type='fixed', discount_value=50.01)
+        self.assertAlmostEqual(bill.amount_untaxed, round(bill_gross - 50.01, 2), places=2)
 
     def test_12_mode_a_price_included_tax(self):
         po = self._po([(self.product_a, 4, 115.0, self.tax_15_incl), (self.product_b, 1, 57.5, self.tax_15_incl)])
@@ -243,7 +267,7 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
                      'min_threshold': 1000, 'discount_percent': 2.0, 'apply_as': 'prorate'})
         self.env['product.supplierinfo'].create({
             'partner_id': self.vendor.id, 'product_tmpl_id': self.product_b.product_tmpl_id.id,
-            'price': 10.0, 'min_qty': 1, 'apd_discount': 7.0,
+            'price': 10.0, 'min_qty': 1, 'discount': 7.0,
         })
         po = self._po([(self.product_a, 60, 20.0, self.tax_15), (self.product_b, 12, 10.0, self.tax_15),
                        (self.product_c, 1, 5.0, self.tax_15)])
@@ -265,11 +289,11 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
         self.assertAlmostEqual(po.amount_untaxed, 194.0)
         self.assertTrue(po.order_line.filtered('apd_is_discount_line'))
 
-    def test_42_auto_vendor_agreement_discount(self):
-        self.company.apd_auto_vendor_discount = True
+    def test_42_vendor_pricelist_discount(self):
+        """Odoo 17 copies the native pricelist discount on the line; the module keeps its precision."""
         self.env['product.supplierinfo'].create({
             'partner_id': self.vendor.id, 'product_tmpl_id': self.product_a.product_tmpl_id.id,
-            'price': 50.0, 'min_qty': 1, 'apd_discount': 4.0,
+            'price': 50.0, 'min_qty': 1, 'discount': 4.0,
         })
         po_form = Form(self.env['purchase.order'])
         po_form.partner_id = self.vendor
@@ -290,7 +314,8 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
         po.button_confirm()
         picking = po.picking_ids
         for move in picking.move_ids:
-            move.quantity_done = move.product_uom_qty
+            move.quantity = move.product_uom_qty
+        picking.move_ids.picked = True
         picking.button_validate()
         layers = picking.move_ids.stock_valuation_layer_ids
         self.assertAlmostEqual(sum(layers.mapped('value')), net, places=2)
@@ -314,11 +339,47 @@ class TestAdvancedPurchaseDiscount(ValuationReconciliationTestCommon):
         self.assertAlmostEqual(sum(interim_lines.mapped('balance')), 0.0, places=2)
         self.assertEqual(bill.apd_application_count, 1)
 
-    def test_51_discount_change_after_confirmation_updates_moves(self):
+    def test_51_discount_change_after_confirmation_values_receipt_net(self):
         po = self._po([(self.product_a, 2, 100.0, self.tax_15)])
         po.button_confirm()
         self._apply(po, mode='prorate', discount_type='percent', discount_value=25.0)
-        self.assertAlmostEqual(po.picking_ids.move_ids.price_unit, 75.0)
+        picking = po.picking_ids
+        picking.move_ids.quantity = 2
+        picking.move_ids.picked = True
+        picking.button_validate()
+        self.assertAlmostEqual(sum(picking.move_ids.stock_valuation_layer_ids.mapped('value')), 150.0)
+
+    def test_53_wizard_discount_survives_quantity_change(self):
+        self.env['product.supplierinfo'].create({
+            'partner_id': self.vendor.id, 'product_tmpl_id': self.product_b.product_tmpl_id.id,
+            'price': 50.0, 'min_qty': 1, 'discount': 3.0,
+        })
+        po = self._po([(self.product_a, 2, 100.0, self.tax_15), (self.product_b, 2, 50.0, self.tax_15),
+                       (self.product_c, 1, 10.0, self.tax_15)])
+        wizard = self._wizard(po, mode='prorate', discount_type='percent', discount_value=10.0)
+        wizard.line_ids[2].include = False
+        wizard.action_apply()
+        po.order_line.write({'product_qty': 5})
+        # wizard discounts kept; the untouched line follows the standard pricelist logic
+        self.assertEqual(po.order_line[:2].mapped('discount'), [10.0, 10.0])
+        self.assertEqual(po.order_line[2].discount, 0.0)
+        self._wizard(po).action_reset()
+        self.assertFalse(any(po.order_line.mapped('apd_discount_locked')))
+        po.order_line[1].product_qty = 4
+        self.assertEqual(po.order_line[1].discount, 3.0)
+
+    def test_54_confirmation_does_not_persist_wizard_discounts(self):
+        vendor = self.env['res.partner'].create({'name': 'New vendor'})
+        product = self.env['product.product'].create({'name': 'Fresh product', 'type': 'consu'})
+        po = self._po([(product, 2, 100.0, self.tax_15)], partner=vendor)
+        self._apply(po, mode='prorate', discount_type='percent', discount_value=12.5)
+        self._apply(po, mode='discount_line', discount_type='fixed', discount_value=10.0, replace_existing=False)
+        po.button_confirm()
+        seller = product.seller_ids.filtered(lambda s: s.partner_id == vendor)
+        self.assertEqual(len(seller), 1)
+        self.assertEqual(seller.price, 100.0)
+        self.assertEqual(seller.discount, 0.0)
+        self.assertFalse(self.discount_product.seller_ids.filtered(lambda s: s.partner_id == vendor))
 
     def test_52_billed_lines_are_locked(self):
         po = self._po([(self.product_c, 1, 100.0, self.tax_15), (self.product_c, 1, 50.0, self.tax_15)])

@@ -10,8 +10,6 @@ class ResConfigSettings(models.TransientModel):
         related='company_id.apd_discount_enabled', readonly=False)
     apd_discount_product_id = fields.Many2one(
         related='company_id.apd_discount_product_id', readonly=False)
-    apd_auto_vendor_discount = fields.Boolean(
-        related='company_id.apd_auto_vendor_discount', readonly=False)
 
     @api.model_create_multi
     def create(self, vals_list):
