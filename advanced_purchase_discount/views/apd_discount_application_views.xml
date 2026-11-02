@@ -19,7 +19,7 @@
                 <field name="residual" optional="hide"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
-                <field name="currency_id" invisible="1"/>
+                <field name="currency_id" column_invisible="True"/>
             </tree>
         </field>
     </record>
@@ -66,7 +66,7 @@
                                     <field name="discount_after"/>
                                     <field name="subtotal_before" sum="Total"/>
                                     <field name="subtotal_after" sum="Total"/>
-                                    <field name="currency_id" invisible="1"/>
+                                    <field name="currency_id" column_invisible="True"/>
                                 </tree>
                             </field>
                         </page>

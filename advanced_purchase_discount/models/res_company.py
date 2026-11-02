@@ -19,12 +19,6 @@ class ResCompany(models.Model):
         help='Service product used for dedicated discount lines (Mode C) and for discount tracking. '
              'Its expense account receives the discount posting.',
     )
-    apd_auto_vendor_discount = fields.Boolean(
-        string='Apply Vendor Agreement Discounts',
-        default=False,
-        help='When a vendor pricelist line carries an agreement discount, copy it on the purchase '
-             'order line automatically when the vendor price is selected.',
-    )
 
     @api.constrains('apd_discount_enabled', 'apd_discount_product_id')
     def _check_apd_discount_product(self):

@@ -354,8 +354,8 @@ class ApdDiscountEngine(models.AbstractModel):
             best = 0.0
             source = False
             seller = line._apd_seller()
-            if seller and seller.apd_discount:
-                best, source = seller.apd_discount, _('vendor agreement')
+            if seller and seller.discount:
+                best, source = seller.discount, _('vendor agreement')
             for tier in line_tiers:
                 if not tier._apd_match_product(product):
                     continue

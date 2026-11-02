@@ -14,7 +14,7 @@
                 <field name="threshold_type"/>
                 <field name="min_threshold"/>
                 <field name="discount_percent"/>
-                <field name="apply_as" attrs="{'invisible': [('scope', '!=', 'order')]}" optional="show"/>
+                <field name="apply_as" invisible="scope != 'order'" optional="show"/>
                 <field name="date_start" optional="hide"/>
                 <field name="date_end" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
@@ -28,7 +28,7 @@
         <field name="arch" type="xml">
             <form string="Volume Discount Tier">
                 <sheet>
-                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_title">
                         <label for="name"/>
                         <h1><field name="name" placeholder="e.g. 5% above 100 units"/></h1>
@@ -40,14 +40,14 @@
                             <field name="threshold_type" widget="radio"/>
                             <field name="min_threshold"/>
                             <field name="discount_percent"/>
-                            <field name="apply_as" widget="radio" attrs="{'invisible': [('scope', '!=', 'order')]}"/>
+                            <field name="apply_as" widget="radio" invisible="scope != 'order'"/>
                         </group>
                         <group string="Applicability">
                             <field name="partner_ids" widget="many2many_tags" placeholder="All vendors"/>
                             <field name="product_ids" widget="many2many_tags" placeholder="All products"
-                                   attrs="{'invisible': [('scope', '!=', 'line')]}"/>
+                                   invisible="scope != 'line'"/>
                             <field name="categ_ids" widget="many2many_tags" placeholder="All categories"
-                                   attrs="{'invisible': [('scope', '!=', 'line')]}"/>
+                                   invisible="scope != 'line'"/>
                             <field name="date_start"/>
                             <field name="date_end"/>
                             <field name="company_id" groups="base.group_multi_company"/>
